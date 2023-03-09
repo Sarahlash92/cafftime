@@ -1,4 +1,4 @@
-const mongoose = require("../models/index");
+import mongoose from "../models/index";
 const Schema = mongoose.Schema;
 
 const logSchema = new Schema({
@@ -11,5 +11,5 @@ const logSchema = new Schema({
 
 const Log = mongoose.model("log", logSchema);
 
-module.exports = Log;
+export default Log;
 

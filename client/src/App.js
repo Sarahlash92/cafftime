@@ -1,7 +1,7 @@
 import './App.css';
 import { useState, useEffect } from "react";
 import { Route, Routes, Link, useLocation } from "react-router-dom";
-import { getLogs } from "../src/ApiService"
+import { getLogs } from "../src/ApiService";
 import { getDatabase } from '../src/ApiService';
 import { DateTime } from "luxon";
 import Log from './pages/Log';
@@ -11,7 +11,7 @@ import EditData from './pages/EditData';
 import Setting from "./pages/Setting";
 import { calculateRemaining, setGraphTime, setGraphTimeforTomorrow } from './Utilities';
 
-function App() {
+function App () {
   const location = useLocation();
   const [logs, setLogs] = useState([]);
   const [flattenedLogs, setFlattenedLogs] = useState([]);
@@ -32,9 +32,9 @@ function App() {
     times.push(setGraphTime(i));
   }
 
-   for (let i = 1; i <= 4; i++) {
-     times.push(setGraphTimeforTomorrow(i));
-   }
+  for (let i = 1; i <= 4; i++) {
+    times.push(setGraphTimeforTomorrow(i));
+  }
 
 
   /* Get food DB */
@@ -45,39 +45,43 @@ function App() {
   }, []);
 
   /* Get user logs grouped by date*/
+  //FIXME: RECURSIVE CALL
   useEffect(() => {
-    getLogs().then((res) => {
-      const groupedLogs = res.reduce((acc, log) => {
-        const date = new Date(log.timestamp).toDateString();
-        if (acc[date]) {
-          acc[date].push(log);
-        } else {
-          acc[date] = [log];
-        }
-        return acc;
-      }, {});
+    getLogs()
+      .then((res) => {
 
-      const groupedLogsArray = Object.entries(groupedLogs).map(
-        ([date, logs]) => {
-          return { date, logs };
-        }
-      );
+        const groupedLogs = res.reduce((acc, log) => {
+          const date = new Date(log.timestamp).toDateString();
+          if (acc[date]) {
+            acc[date].push(log);
+          } else {
+            acc[date] = [log];
+          }
+          return acc;
+        }, {});
 
-      setLogs(groupedLogsArray);
-
-      if (groupedLogsArray[0].date === new Date().toDateString()) {
-        setTodaySum(
-          groupedLogsArray[0].logs.reduce((acc, log) => {
-            acc = acc + log.caffeine;
-            return acc;
-          }, 0)
+        const groupedLogsArray = Object.entries(groupedLogs).map(
+          ([date, logs]) => {
+            return { date, logs };
+          }
         );
-      }
-    });
+
+        setLogs(groupedLogsArray);
+
+        if (groupedLogsArray[0].date === new Date().toDateString()) {
+          setTodaySum(
+            groupedLogsArray[0].logs.reduce((acc, log) => {
+              acc = acc + log.caffeine;
+              return acc;
+            }, 0)
+          );
+        }
+      })
+      .catch(err => console.log(err));
 
     setFlattenedLogs(logs.flatMap((log) => log.logs));
 
-    function filterLogByTime(logs, time) {
+    function filterLogByTime (logs, time) {
       const filteredLogByTime = logs.filter(
         (log) => Date.parse(log.timestamp) < time
       );
