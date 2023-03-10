@@ -1,5 +1,5 @@
 import { Line } from "react-chartjs-2";
-import { Tooltip } from 'chart.js';
+import { Tooltip} from 'chart.js';
 import { Chart as ChartJS } from "chart.js/auto";
 import annotationPlugin, { AnnotationOptions } from "chartjs-plugin-annotation";
 import { DateTime } from "luxon";
@@ -56,7 +56,7 @@ function LineGraph({ remainingByTime, userSetting } : LineGraphProps) {
             drawTime: "beforeDatasetsDraw",
           } as AnnotationOptions,
 
-          
+
           sleepTime: {
             type: "line",
             mode: "vertical",

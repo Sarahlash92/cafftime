@@ -4,7 +4,17 @@ import Search from '../components/Search';
 import SearchResult from '../components/SearchResult';
 import DataDetail from '../components/DataDetail';
 
-function AddData({ foodDb }) {
+type foodDbProps = {
+
+
+
+
+
+
+} 
+
+
+function AddData({ foodDb } : foodDbProps) {
   const [selectedItem, setSelectedItem] = useState({});
   const [searchResult, setSearchResult] = useState([]);
 
