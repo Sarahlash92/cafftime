@@ -1,18 +1,35 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { postLog } from '../ApiService';
 
 
-function DataDetail({ selectedItem }) {
+type DetaDetailProps = {
+  selectedItem : {
+
+    _id: string;
+    name: string;
+    baseAmount: number;
+    caffeine: number;
+    timestamp: string;
+    imageUrl: string;
+
+  };
+}
+
+function DataDetail({ selectedItem }: DetaDetailProps ) {
+  
   const navigate = useNavigate();
   const [newLog, setNewLog] = useState({ ...selectedItem });
   const caffeineRatio = selectedItem.caffeine / selectedItem.baseAmount;
-  function handleChange(e) {
+
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.name === "baseAmount") {
-      const caffeineValue = Math.round(caffeineRatio * e.target.value);
+
+      const caffeineValue = Math.round(caffeineRatio * Number(e.target.value));
       setNewLog({
         ...newLog,
-        baseAmount: e.target.value,
+        baseAmount: Number(e.target.value),
         caffeine: caffeineValue
       });
     } else {
@@ -23,20 +40,20 @@ function DataDetail({ selectedItem }) {
     }
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const updatedLog = {
       ...newLog,
-      name: e.target.name.value,
-      baseAmount: e.target.baseAmount.value,
-      caffeine: e.target.caffeine.value,
-      timestamp: e.target.timestamp.value,
+      name: newLog.name,
+      baseAmount: Number(e.currentTarget.baseAmount.value),
+      caffeine:Number( e.currentTarget.caffeine.value),
+      timestamp: e.currentTarget.timestamp.value,
     };
     setNewLog(updatedLog);
     handlePost(updatedLog);
   }
 
-function handlePost(updatedLog) {
+function handlePost(updatedLog: typeof newLog) {
     postLog(updatedLog);
     navigate("/log");
   }

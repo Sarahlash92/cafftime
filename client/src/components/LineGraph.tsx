@@ -1,13 +1,23 @@
 import { Line } from "react-chartjs-2";
 import { Tooltip } from 'chart.js';
 import { Chart as ChartJS } from "chart.js/auto";
-import annotationPlugin from "chartjs-plugin-annotation";
+import annotationPlugin, { AnnotationOptions } from "chartjs-plugin-annotation";
 import { DateTime } from "luxon";
+
+type LineGraphProps = {
+  remainingByTime: number[],
+  userSetting : {
+    timezone: string;
+    sleepTreshold: number;
+    sleepTime: string;
+  },
+}
+
 
 ChartJS.register(annotationPlugin, Tooltip);
 
-function LineGraph({ remainingByTime, userSetting }) {
-  const labels = [];
+function LineGraph({ remainingByTime, userSetting } : LineGraphProps) {
+  const labels: String[] = [];
   for (let i = 6; i <= 28; i++) {
     const dt = DateTime.fromObject({
       hour: i % 24,
@@ -44,7 +54,9 @@ function LineGraph({ remainingByTime, userSetting }) {
             borderWidth: 2,
             borderDash: [10, 10],
             drawTime: "beforeDatasetsDraw",
-          },
+          } as AnnotationOptions,
+
+          
           sleepTime: {
             type: "line",
             mode: "vertical",
@@ -54,14 +66,14 @@ function LineGraph({ remainingByTime, userSetting }) {
             borderWidth: 2,
             borderDash: [10, 10],
             drawTime: "beforeDatasetsDraw",
-          },
+          } as AnnotationOptions,
         },
       },
     },
   };
 
   
-  return <Line type="line" data={data} options={options}/>;
+  return <Line type="line" data ={data} options={options}/>;
 }
 
 export default LineGraph;
