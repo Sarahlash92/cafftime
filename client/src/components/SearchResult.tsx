@@ -1,3 +1,4 @@
+import React from 'react';
 
 function SearchResult({ searchResult, setSelectedItem }) {
 
@@ -6,7 +7,7 @@ function SearchResult({ searchResult, setSelectedItem }) {
   };
 
     return (
-      <div>
+      <div >
           <ul className="results mx-10">
           {searchResult.map((result) => {
               return (
@@ -21,7 +22,9 @@ function SearchResult({ searchResult, setSelectedItem }) {
             })}
           </ul>
       </div>
-    );
+
+
+          );
   }
 
 

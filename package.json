@@ -18,5 +18,8 @@
   "homepage": "https://github.com/imss0/cafftime#readme",
   "devDependencies": {
     "eslint-plugin-react": "^7.32.2"
+  },
+  "dependencies": {
+    "@types/node": "^18.14.6"
   }
 }
