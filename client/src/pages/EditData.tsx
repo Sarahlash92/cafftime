@@ -1,25 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { getLog, deleteLog, editLog } from "../ApiService"
 import React, { useState, useEffect } from "react";
-
-type foobDdp = {
-
-  _id: string;
-  name: string;
-  baseAmount: number;
-  caffeine: number;
-  timestamp: string;
-
-}
-
-type foobDdpedit= {
-
-  name: string;
-  baseAmount: number;
-  caffeine: number;
-  timestamp: string;
-
-}
+import {foobDdp,foobDdpedit } from '../tsTypes'
 
 
 function EditData() {

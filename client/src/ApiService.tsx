@@ -1,4 +1,7 @@
-import { Logs } from './tsTypes';
+import { Logs, foobDdpedit} from './tsTypes';
+
+
+
 const URL = "http://localhost:4000";
 /* api service for food DB*/
 export const getDatabase = async () => {
@@ -20,7 +23,7 @@ export const getLogs = async () => {
   return response;
 };
 
-export const getLog = async (id:string) => {
+export const getLog = async (id:string | undefined) => {
   const response = await fetch(URL + "/log/edit/" + id)
     .then((res) => res.json())
 
@@ -37,7 +40,7 @@ export const postLog = async (newLog : Logs) => {
   return response.json();
 };
 
-export const deleteLog = async (id: string) => {
+export const deleteLog = async (id: string | undefined) => {
   const response = await fetch(URL + "/log/edit/" + id, {
     method: "DELETE"
   })
@@ -45,7 +48,7 @@ export const deleteLog = async (id: string) => {
   return response;
 };
 
-export const editLog = async (id: string, editedLog: Logs) => {
+export const editLog = async (id: string | undefined, editedLog: foobDdpedit) => {
   const response = await fetch(URL + "/log/edit/" + id, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },

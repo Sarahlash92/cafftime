@@ -15,18 +15,8 @@ type foobDdp = {
 
 }
 type foodDbProps = {
-<<<<<<< HEAD
 foodDb: foobDdp[]
 } 
-=======
-
-
-
-
-
-
-}
->>>>>>> 02109767b3f0eda490977f38117b4b9ea4afc2ac
 
 
 function AddData({ foodDb } : foodDbProps) {
