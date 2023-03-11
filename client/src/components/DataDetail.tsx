@@ -1,20 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { postLog } from '../ApiService';
+import { DetaDetailProps } from '../tsTypes'
 
 
-type DetaDetailProps = {
-  selectedItem : {
-
-    _id: string;
-    name: string;
-    baseAmount: number;
-    caffeine: number;
-    timestamp: string;
-    imageUrl: string;
-
-  };
-}
 
 function DataDetail({ selectedItem }: DetaDetailProps ) {
   

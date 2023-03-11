@@ -27,3 +27,36 @@ export type User = {
   caffeine: number;
   imageUrl: string;
 }
+
+export type foobDdp = {
+
+  _id: string;
+  name: string;
+  baseAmount: number;
+  caffeine: number;
+  timestamp: string;
+
+}
+
+export type foobDdpedit= {
+
+  
+  name: string;
+  baseAmount: number;
+  caffeine: number;
+  timestamp: string;
+
+}
+
+export type DetaDetailProps = {
+  selectedItem : {
+
+    _id: string;
+    name: string;
+    baseAmount: number;
+    caffeine: number;
+    timestamp: string;
+    imageUrl: string;
+
+  };
+}
