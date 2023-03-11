@@ -1,6 +1,13 @@
 import { Doughnut } from "react-chartjs-2";
+type PieChartProps = {
+  todaySum : number,
+  userSetting : {
+    dailyLimit: number;
+    sleepTreshold: number;
+    sleepTime: string;
+  },}
 
-function PieChart({ todaySum , userSetting }) {
+function PieChart({ todaySum , userSetting }: PieChartProps) {
   const left = userSetting.dailyLimit - todaySum > 0 ? userSetting.dailyLimit - todaySum : 0;
   let backgroundColor;
 

@@ -11,7 +11,7 @@ type foodDbProps = {
 
 
 
-} 
+}
 
 
 function AddData({ foodDb } : foodDbProps) {

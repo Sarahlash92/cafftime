@@ -1,13 +1,14 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { getLog, deleteLog, editLog } from "../ApiService"
 import { useState, useEffect } from "react";
+import { Logs } from '../tsTypes';
 
 function EditData() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [selectedLog, setSelectedLog] = useState({});
   const [editedLog, setEditedLog] = useState({ ...selectedLog })
-  const caffeineRatio = selectedLog.caffeine / selectedLog.baseAmount;
+  const caffeineRatio  = selectedLog.caffeine / selectedLog.baseAmount;
 
   useEffect(() => {
     getLog(id).then((res) => setSelectedLog(res))
@@ -18,9 +19,9 @@ function EditData() {
     navigate("/log");
   }
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.name === "baseAmount") {
-      const caffeineValue = Math.round(caffeineRatio * e.target.value);
+      const caffeineValue = Math.round(caffeineRatio * +e.target.value);
       setEditedLog({
         ...editedLog,
         baseAmount: e.target.value,

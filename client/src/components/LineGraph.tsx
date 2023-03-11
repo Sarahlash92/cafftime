@@ -12,7 +12,7 @@ type LineGraphProps = {
     sleepTime: string;
   },
 }
-
+//TODO: ln 10 dayly limit???
 
 ChartJS.register(annotationPlugin, Tooltip);
 
@@ -72,7 +72,7 @@ function LineGraph({ remainingByTime, userSetting } : LineGraphProps) {
     },
   };
 
-  
+
   return <Line type="line" data ={data} options={options}/>;
 }
 
