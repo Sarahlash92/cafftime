@@ -17,6 +17,11 @@ interface IeditedSetting {
   sleepTreshold: number;
   sleepTime: string;
 }
+interface FormSmth {
+  dailyLimit: {value : string};
+  sleepTreshold:  {value : string};
+  sleepTime:  {value : string};
+}
 
 function Setting({ userSetting, setUserSetting } : SettingProps) {
   const navigate = useNavigate();
@@ -32,12 +37,13 @@ function Setting({ userSetting, setUserSetting } : SettingProps) {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement> ) {
     e.preventDefault();
+    const FormValues = e.target as unknown as FormSmth;
     const updatedSetting = {
       ...editedSetting,
-      //FIXME:
-      dailyLimit: +e.target.dailyLimit.value,
-      sleepTreshold: +e.target.sleepTreshold.value,
-      sleepTime: e.target.sleepTime.value,
+      //FIXME: zod - validation
+      dailyLimit: +FormValues.dailyLimit.value,
+      sleepTreshold: +FormValues.sleepTreshold.value,
+      sleepTime: FormValues.sleepTime.value,
     };
     setEditedSetting(updatedSetting);
     localStorage.setItem("userSetting", JSON.stringify(updatedSetting));

@@ -1,11 +1,8 @@
 import { Doughnut } from "react-chartjs-2";
+import { User } from '../tsTypes';
 type PieChartProps = {
   todaySum : number,
-  userSetting : {
-    dailyLimit: number;
-    sleepTreshold: number;
-    sleepTime: string;
-  },}
+  userSetting : User}
 
 function PieChart({ todaySum , userSetting }: PieChartProps) {
   const left = userSetting.dailyLimit - todaySum > 0 ? userSetting.dailyLimit - todaySum : 0;

@@ -21,11 +21,9 @@ export type User = {
   _id: string;
   email: string;
   password: string;
-  id: string;
-  name: string;
-  baseAmount: number;
-  caffeine: number;
-  imageUrl: string;
+  dailyLimit: number;
+  sleepTreshold: number;
+  sleepTime: string;
 }
 
 export type foobDdp = {
