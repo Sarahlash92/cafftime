@@ -1,11 +1,28 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Setting({ userSetting, setUserSetting }) {
-  const navigate = useNavigate();
-  const [editedSetting, setEditedSetting] = useState({ ...userSetting });
+type UserSetting = {
+  dailyLimit: number;
+  sleepTreshold: number;
+  sleepTime: string;
+}
 
-  function handleChange(e) {
+type SettingProps = {
+  userSetting: UserSetting;
+  setUserSetting: React.Dispatch<React.SetStateAction<UserSetting>>;
+};
+
+interface IeditedSetting {
+  dailyLimit: number;
+  sleepTreshold: number;
+  sleepTime: string;
+}
+
+function Setting({ userSetting, setUserSetting } : SettingProps) {
+  const navigate = useNavigate();
+  const [editedSetting, setEditedSetting] = useState <IeditedSetting> ({ ...userSetting });
+
+  function handleChange(e:  React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement> ) {
     setEditedSetting({
       ...editedSetting,
       [e.target.name]: e.target.value,
@@ -13,12 +30,13 @@ function Setting({ userSetting, setUserSetting }) {
   }
 
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement> ) {
     e.preventDefault();
     const updatedSetting = {
       ...editedSetting,
-      dailyLimit: e.target.dailyLimit.value,
-      sleepTreshold: e.target.sleepTreshold.value,
+      //FIXME:
+      dailyLimit: +e.target.dailyLimit.value,
+      sleepTreshold: +e.target.sleepTreshold.value,
       sleepTime: e.target.sleepTime.value,
     };
     setEditedSetting(updatedSetting);
@@ -94,7 +112,8 @@ function Setting({ userSetting, setUserSetting }) {
             <br />
             ➕ If you sleep well even if you drink coffee late at night, raise
             this number.
-            <br />➖ If drinking a little coffee interfere with your sleep,
+            <br />
+            ➖ If drinking a little coffee interfere with your sleep,
             lower this number.
           </p>
         </div>

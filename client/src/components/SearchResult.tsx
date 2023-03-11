@@ -1,9 +1,28 @@
 import React from 'react';
 
-function SearchResult({ searchResult, setSelectedItem }) {
+type SearchResultProps = {
+   searchResult:  Array<{
+    _id: string;
+    id: string,
+    name: string,
+    baseAmount: number,
+    caffeine: number,
+    imageUrl: string
+ }> ,
+   setSelectedItem: React.Dispatch<React.SetStateAction<{}>>,
+}
 
-  const handleClick = (result) => {
-    setSelectedItem(result);
+function SearchResult({ searchResult, setSelectedItem }:SearchResultProps) {
+
+  const handleClick = (result: {
+      _id: string;
+      id: string,
+      name: string,
+      baseAmount: number,
+      caffeine: number,
+      imageUrl: string
+    }) => {
+      setSelectedItem(result);
   };
 
     return (

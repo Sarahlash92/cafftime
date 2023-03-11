@@ -1,25 +1,49 @@
 import { useState, useEffect } from "react";
 
-function Search({ database, searchResult, setSearchResult, /*setShowList, setShowDetail*/ }) {
+//FIXME: fix DB : any on ln 5
+
+type SearchProps = {
+  database: any ,
+   searchResult: Array<{
+     _id: string;
+     id: string,
+     name: string,
+     baseAmount: number,
+     caffeine: number,
+     imageUrl: string
+  }> ,
+   setSearchResult:  React.Dispatch<React.SetStateAction<never[]>>
+}
+
+ type ResultType = {
+  _id: string;
+  id: string;
+  name: string;
+  baseAmount: number;
+  caffeine: number;
+  imageUrl: string;
+}
+function Search({ database, searchResult, setSearchResult, /*setShowList, setShowDetail*/ }: SearchProps) {
   const [searchKeyword, setSearchKeyword] = useState('');
 
   useEffect(() => {
     const filteredResult =
       searchKeyword.length > 0
-        ? database.filter((item) => {
+        ? database.filter((item:{name:string}) => {
             return item.name.toLowerCase().includes(searchKeyword);
           })
         : [];
 
-    const uniqueResults = filteredResult.filter((result) => {
+    const uniqueResults = filteredResult.filter((result : ResultType)=> {
       return !searchResult.some(
-        (existingResult) => existingResult.id === result.id
+        existingResult => existingResult.id === result.id
       );
     });
     setSearchResult(uniqueResults);
   }, [searchKeyword]);
+//TODO: check if useEffect works
 
-  function handleChange(e) {
+  function handleChange(e:  React.ChangeEvent<HTMLInputElement>) {
     const keyword = e.target.value.toLowerCase();
     setSearchKeyword(keyword);
     // setShowList(true);
