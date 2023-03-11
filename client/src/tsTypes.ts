@@ -13,10 +13,10 @@ export type Logs = {
   name: string;
   baseAmount: number;
   caffeine: number;
-  date: Date | string;
+  date: Date;
   timestamp : Date;
   //|bigint|number;
-  string: string;
+  //  string: any;
   logs: Logs[];
 };
 

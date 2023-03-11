@@ -10,21 +10,26 @@ import AddData from './pages/AddData';
 import EditData from './pages/EditData';
 import Setting from "./pages/Setting";
 import { calculateRemaining, setGraphTime, setGraphTimeforTomorrow } from './Utilities';
-import { Logs } from './tsTypes';
 
-function App () {
+import { Logs, Food, foobDdp, foobDdpedit, DetaDetailProps, User } from './tsTypes';
+
+function App ()  {
   const location = useLocation();
-  const [logs, setLogs] = useState([]);
+  const [logs, setLogs] = useState <Logs[]> ([]);
   const [flattenedLogs, setFlattenedLogs] = useState([]);
-  const [todaySum, setTodaySum] = useState(0);
-  const [foodDb, setFoodDb] = useState([]);
-  const [remaining, setRemaining] = useState(calculateRemaining(logs));
-  const [remainingByTime, setRemainingByTime] = useState([]);
-  const [remainingatBedtime, setRemainingatBedTime] = useState(0);
-  const [userSetting, setUserSetting] = useState({
+  const [todaySum, setTodaySum] = useState <number> (0);
+  const [foodDb, setFoodDb] = useState<foobDdp[]>([]);
+  const [remaining, setRemaining] = useState <number>(calculateRemaining(logs));
+  const [remainingByTime, setRemainingByTime] = useState<number[]>([]);
+  const [remainingatBedtime, setRemainingatBedTime] = useState<number>(0);
+  const [userSetting, setUserSetting] = useState<User>({
+    _id: '',
+    email: '',
+    password: '',
     dailyLimit: 400,
     sleepTreshold: 50,
     sleepTime: "10PM"
+
   });
 
   /* set time for line graph*/
@@ -41,6 +46,23 @@ function App () {
   /* Get food DB */
   useEffect(() => {
     getDatabase().then((res) => {
+      //0:
+      // baseAmount:248
+      // caffeine:160
+      // name:"Espresso Monster"
+      // timestamp:"2023-03-11T13:11:00.000Z"
+      // __v:0
+      // _id:"640c7e00bb6e64255a7770fe"
+      // [[Prototype]]
+      //Object1:
+      // baseAmount:354
+      // caffeine:154
+      // name:"Americano"
+      // timestamp:"2023-03-11T13:08:00.000Z"
+      // __v:0
+      // _id:"640c7d6dbb6e64255a772137"
+      // [[Prototype]]:Object
+      // length:2
       setFoodDb(res);
     });
   }, []);
@@ -51,7 +73,7 @@ function App () {
     getLogs()
       .then((res) => {
 
-        const groupedLogs: Logs[] = res.reduce((acc:Logs, log: Logs) => {
+        const groupedLogs:{[key: string]: Logs[]}  = res.reduce((acc:{[key: string]: Logs[]}, log: Logs) => {
           const date = new Date(log.timestamp).toDateString(); // "Sat Mar 11 2023"
           if (acc[date]) {
             acc[date].push(log);
