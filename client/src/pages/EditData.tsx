@@ -1,12 +1,32 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { getLog, deleteLog, editLog } from "../ApiService"
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+
+type foobDdp = {
+
+  _id: string;
+  name: string;
+  baseAmount: number;
+  caffeine: number;
+  timestamp: string;
+
+}
+
+type foobDdpedit= {
+
+  name: string;
+  baseAmount: number;
+  caffeine: number;
+  timestamp: string;
+
+}
+
 
 function EditData() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [selectedLog, setSelectedLog] = useState({});
-  const [editedLog, setEditedLog] = useState({ ...selectedLog })
+  const [selectedLog, setSelectedLog] = useState<foobDdp>({ _id: '', name: '', baseAmount: 0, caffeine: 0, timestamp: ''});
+  const [editedLog, setEditedLog] = useState<foobDdpedit>({ ...selectedLog })
   const caffeineRatio = selectedLog.caffeine / selectedLog.baseAmount;
 
   useEffect(() => {
@@ -18,12 +38,12 @@ function EditData() {
     navigate("/log");
   }
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.name === "baseAmount") {
-      const caffeineValue = Math.round(caffeineRatio * e.target.value);
+      const caffeineValue = Math.round(caffeineRatio * parseInt(e.target.value, 10));
       setEditedLog({
         ...editedLog,
-        baseAmount: e.target.value,
+        baseAmount: parseInt(e.target.value, 10),
         caffeine: caffeineValue,
       });
     } else {
@@ -34,20 +54,20 @@ function EditData() {
     }
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const updatedLog = {
       ...editedLog,
-      name: e.target.name.value,
-      baseAmount: e.target.baseAmount.value,
-      caffeine: e.target.caffeine.value,
-      timestamp: e.target.timestamp.value,
+      name: e.currentTarget.name,
+      baseAmount: parseInt(e.currentTarget.baseAmount.value, 10),
+      caffeine: parseInt(e.currentTarget.caffeine.value, 10),
+      timestamp: e.currentTarget.timestamp.value,
     };
     setEditedLog(updatedLog);
     handleEdit(updatedLog);
   }
 
-  function handleEdit(updatedLog) {
+  function handleEdit(updatedLog: foobDdpedit) {
     editLog(id, updatedLog)
     navigate("/log");
   }

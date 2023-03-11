@@ -3,8 +3,23 @@ import CaffSimulator from '../components/CaffSimulator';
 import LineGraph from '../components/LineGraph';
 import PieChart from '../components/PieChart';
 
+type DailyProps = {
 
-function Daily({ todaySum, remaining, remainingByTime, remainingatBedtime, userSetting }) {
+  todaySum: number;
+  remaining: number;
+  remainingByTime: number[];
+  remainingatBedtime: number;
+  userSetting: {
+    dailyLimit: number;
+    sensitivity: number;
+    startTime: string;
+    endTime: string;
+    bedTime: string;
+  };
+}
+
+
+const Daily: React.FC<DailyProps> = ({ todaySum, remaining, remainingByTime, remainingatBedtime, userSetting }) =>  {
   return (
     <div className="rounded-t-2xl h-[calc(80vh-64px)] overflow-scroll bg-white">
       <h1 className="text-2xl font-bold mt-8"> TODAY </h1>

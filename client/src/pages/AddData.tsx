@@ -4,21 +4,26 @@ import Search from '../components/Search';
 import SearchResult from '../components/SearchResult';
 import DataDetail from '../components/DataDetail';
 
+type foobDdp = {
+
+  _id: string;
+  name: string;
+  baseAmount: number;
+  caffeine: number;
+  timestamp: string;
+  imageUrl: string;
+
+}
 type foodDbProps = {
-
-
-
-
-
-
+foodDb: foobDdp[]
 } 
 
 
 function AddData({ foodDb } : foodDbProps) {
-  const [selectedItem, setSelectedItem] = useState({});
-  const [searchResult, setSearchResult] = useState([]);
+  const [selectedItem, setSelectedItem] = useState<foobDdp>({_id: '', name: '', baseAmount: 0, caffeine: 0, timestamp: '', imageUrl: ''});
+  const [searchResult, setSearchResult] = useState<foobDdp[]>([]);
 
-  const handleSelectedItemChange = (item) => {
+  const handleSelectedItemChange = (item: foobDdp) => {
     setSelectedItem(item);
   };
 

@@ -5,6 +5,7 @@ import React from 'react';
 type CaffSimulatorProps = {
   remaining: number;
   remainingatBedtime: number;
+  className? : string;
 }
 
 function CaffSimulator({remaining, remainingatBedtime}: CaffSimulatorProps) {

@@ -147,6 +147,9 @@ function handlePost(updatedLog: typeof newLog) {
       </form>
     );
   }
+  return (
+    <div>No Item selected.</div>
+  )
 }
 
 export default DataDetail;
