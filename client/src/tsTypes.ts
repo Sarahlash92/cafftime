@@ -13,8 +13,11 @@ export type Logs = {
   name: string;
   baseAmount: number;
   caffeine: number;
-  date: Date;
-  timestamp : Date|bigint|number
+  date: Date | string;
+  timestamp : Date;
+  //|bigint|number;
+  string: string;
+  logs: Logs[];
 };
 
 export type User = {
@@ -38,7 +41,7 @@ export type foobDdp = {
 
 export type foobDdpedit= {
 
-  
+
   name: string;
   baseAmount: number;
   caffeine: number;

@@ -10,6 +10,7 @@ import AddData from './pages/AddData';
 import EditData from './pages/EditData';
 import Setting from "./pages/Setting";
 import { calculateRemaining, setGraphTime, setGraphTimeforTomorrow } from './Utilities';
+import { Logs } from './tsTypes';
 
 function App () {
   const location = useLocation();
@@ -27,7 +28,7 @@ function App () {
   });
 
   /* set time for line graph*/
-  const times = [];
+  const times : number[] = [];
   for (let i = 6; i <= 24; i++) {
     times.push(setGraphTime(i));
   }
@@ -50,8 +51,8 @@ function App () {
     getLogs()
       .then((res) => {
 
-        const groupedLogs = res.reduce((acc, log) => {
-          const date = new Date(log.timestamp).toDateString();
+        const groupedLogs: Logs[] = res.reduce((acc:Logs, log: Logs) => {
+          const date = new Date(log.timestamp).toDateString(); // "Sat Mar 11 2023"
           if (acc[date]) {
             acc[date].push(log);
           } else {

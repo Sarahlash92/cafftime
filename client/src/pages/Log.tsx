@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Logs } from '../tsTypes';
 
-
+//TODO: check if ln 14 is working with toString()
 
 function Log({ logs }: {logs: Logs[]}) {
   return (
@@ -10,8 +10,8 @@ function Log({ logs }: {logs: Logs[]}) {
         {logs.map((log :Logs) => {
 
           return (
-            <div className="border-b-2 py-4" key ={log.date}>
-              <p className="text-2xl font-bold text-left">{log.date}</p>
+            <div className="border-b-2 py-4" key ={log.date.toString()}>
+              <p className="text-2xl font-bold text-left">{log.date.toString()}</p>
               <p className="text-2xl font-bold text-left">
                 Total Caffeine{" "}
                 <span className="text-2xl font-bold text-red-500">

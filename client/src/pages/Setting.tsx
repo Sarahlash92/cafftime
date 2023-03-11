@@ -40,7 +40,7 @@ function Setting({ userSetting, setUserSetting } : SettingProps) {
     const FormValues = e.target as unknown as FormSmth;
     const updatedSetting = {
       ...editedSetting,
-      //FIXME: zod - validation
+      //TODO: zod - validation
       dailyLimit: +FormValues.dailyLimit.value,
       sleepTreshold: +FormValues.sleepTreshold.value,
       sleepTime: FormValues.sleepTime.value,
