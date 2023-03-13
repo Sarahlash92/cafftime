@@ -16,10 +16,10 @@ type foobDdp = {
 }
 type foodDbProps = {
 foodDb: foobDdp[]
-} 
+}
 
 
-function AddData({ foodDb } : foodDbProps) {
+function AddData({ foodDb, setItemAdded } : foodDbProps) {
   const [selectedItem, setSelectedItem] = useState<foobDdp>({_id: '', name: '', baseAmount: 0, caffeine: 0, timestamp: '', imageUrl: ''});
   const [searchResult, setSearchResult] = useState<foobDdp[]>([]);
 
@@ -47,7 +47,7 @@ function AddData({ foodDb } : foodDbProps) {
 
         />
       }
-      <DataDetail
+      <DataDetail setItemAdded={setItemAdded}
         selectedItem={selectedItem}
       />
     </div>

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import {foobDdp,foobDdpedit } from '../tsTypes'
 
 
-function EditData() {
+function EditData({ itemDeleted }) {
   const navigate = useNavigate();
   const { id } = useParams();
   const [selectedLog, setSelectedLog] = useState<foobDdp>({ _id: '', name: '', baseAmount: 0, caffeine: 0, timestamp: ''});
@@ -17,6 +17,7 @@ function EditData() {
 
   function handleDelete() {
     deleteLog(id);
+    itemDeleted(true);
     navigate("/log");
   }
 

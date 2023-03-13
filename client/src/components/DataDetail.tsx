@@ -5,8 +5,8 @@ import { DetaDetailProps } from '../tsTypes'
 
 
 
-function DataDetail({ selectedItem }: DetaDetailProps ) {
-  
+function DataDetail({ selectedItem, setItemAdded }: DetaDetailProps ) {
+
   const navigate = useNavigate();
   const [newLog, setNewLog] = useState({ ...selectedItem });
   const caffeineRatio = selectedItem.caffeine / selectedItem.baseAmount;
@@ -44,6 +44,7 @@ function DataDetail({ selectedItem }: DetaDetailProps ) {
 
 function handlePost(updatedLog: typeof newLog) {
     postLog(updatedLog);
+    setItemAdded(true);
     navigate("/log");
   }
 

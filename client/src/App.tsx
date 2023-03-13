@@ -20,6 +20,7 @@ function App ()  {
   const [todaySum, setTodaySum] = useState <number> (0);
   const [foodDb, setFoodDb] = useState<foobDdp[]>([]);
   const [remaining, setRemaining] = useState <number>(calculateRemaining(logs));
+  const [itemAdded, setItemAdded] = useState(false);
   const [remainingByTime, setRemainingByTime] = useState<number[]>([]);
   const [remainingatBedtime, setRemainingatBedTime] = useState<number>(0);
   const [userSetting, setUserSetting] = useState<User>({
@@ -135,7 +136,7 @@ function App ()  {
     setRemaining(calculateRemaining(flattenedLogs));
     setRemainingByTime(times.map(time => calculateRemaining(filterLogByTime(flattenedLogs, time), time)));
     setRemainingatBedTime(calculateRemaining(flattenedLogs, sleepTime));
-  }, [logs]);
+  }, [itemAdded]);
 
 
 
@@ -161,8 +162,8 @@ function App ()  {
               />
             }
           />
-          <Route path="/add" element={<AddData foodDb={foodDb} />} />
-          <Route path="/log/edit/:id" element={<EditData />} />
+          <Route path="/add" element={<AddData setItemAdded={setItemAdded} foodDb={foodDb} />} />
+          <Route path="/log/edit/:id" element={<EditData itemDeleted={setItemAdded}/>} />
           <Route
             path="/setting"
             element={
