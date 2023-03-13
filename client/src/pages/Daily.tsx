@@ -2,6 +2,7 @@ import React from 'react';
 import CaffSimulator from '../components/CaffSimulator';
 import LineGraph from '../components/LineGraph';
 import PieChart from '../components/PieChart';
+import {User} from '../tsTypes';
 
 type DailyProps = {
 
@@ -9,13 +10,20 @@ type DailyProps = {
   remaining: number;
   remainingByTime: number[];
   remainingatBedtime: number;
-  userSetting: {
-    dailyLimit: number;
-    sensitivity: number;
-    startTime: string;
-    endTime: string;
-    bedTime: string;
-  };
+  userSetting: User
+    
+    // _id: string;
+    // email: string;
+    // password: string;
+    // dailyLimit: number;
+    // sleepTreshold: number;
+    // sleepTime: string;
+    // dailyLimit: number;
+    // sensitivity: number;
+    // startTime: string;
+    // endTime: string;
+    // bedTime: string;
+  
 }
 
 

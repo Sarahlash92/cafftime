@@ -3,16 +3,14 @@ import { Tooltip } from 'chart.js';
 import { Chart as ChartJS } from "chart.js/auto";
 import annotationPlugin, { AnnotationOptions } from "chartjs-plugin-annotation";
 import { DateTime } from "luxon";
+import { User } from '../tsTypes'
 
 type LineGraphProps = {
   remainingByTime: number[],
-  userSetting : {
-    
-    timezone: string;
-    sleepTreshold: number;
-    sleepTime: string;
-    
-  },
+  userSetting : User
+    // timezone: string;
+    // sleepTreshold: number;
+    // sleepTime: string;
 }
 //TODO: ln 10 dayly limit???
 

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import {User} from '../tsTypes'
 
 type UserSetting = {
   dailyLimit: number;
@@ -9,7 +10,7 @@ type UserSetting = {
 
 type SettingProps = {
   userSetting: UserSetting;
-  setUserSetting: React.Dispatch<React.SetStateAction<UserSetting>>;
+  setUserSetting: React.Dispatch<React.SetStateAction<User>>;
 };
 
 interface IeditedSetting {

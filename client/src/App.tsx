@@ -20,7 +20,7 @@ function App ()  {
   const [todaySum, setTodaySum] = useState <number> (0);
   const [foodDb, setFoodDb] = useState<foobDdp[]>([]);
   const [remaining, setRemaining] = useState <number>(calculateRemaining(logs));
-  const [itemAdded, setItemAdded] = useState<boolean>(false);
+  const [itemAdded, setItemAdded] = useState(false);
   const [remainingByTime, setRemainingByTime] = useState<number[]>([]);
   const [remainingatBedtime, setRemainingatBedTime] = useState<number>(0);
   const [userSetting, setUserSetting] = useState<User>({
@@ -29,7 +29,8 @@ function App ()  {
     password: '',
     dailyLimit: 400,
     sleepTreshold: 50,
-    sleepTime: "10PM"
+    sleepTime: "10PM",
+    timezone: '',
 
   });
 
@@ -47,23 +48,7 @@ function App ()  {
   /* Get food DB */
   useEffect(() => {
     getDatabase().then((res) => {
-      //0:
-      // baseAmount:248
-      // caffeine:160
-      // name:"Espresso Monster"
-      // timestamp:"2023-03-11T13:11:00.000Z"
-      // __v:0
-      // _id:"640c7e00bb6e64255a7770fe"
-      // [[Prototype]]
-      //Object1:
-      // baseAmount:354
-      // caffeine:154
-      // name:"Americano"
-      // timestamp:"2023-03-11T13:08:00.000Z"
-      // __v:0
-      // _id:"640c7d6dbb6e64255a772137"
-      // [[Prototype]]:Object
-      // length:2
+
       setFoodDb(res);
     });
   }, []);
