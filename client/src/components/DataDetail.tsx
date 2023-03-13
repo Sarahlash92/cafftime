@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { postLog } from '../ApiService';
-import { DetaDetailProps } from '../tsTypes'
+import { DataDetailProps } from '../tsTypes'
 
 
-
-function DataDetail({ selectedItem, setItemAdded }: DetaDetailProps ) {
+function DataDetail({ selectedItem, setItemAdded }: DataDetailProps ) {
 
   const navigate = useNavigate();
   const [newLog, setNewLog] = useState({ ...selectedItem });
@@ -42,7 +41,7 @@ function DataDetail({ selectedItem, setItemAdded }: DetaDetailProps ) {
     handlePost(updatedLog);
   }
 
-function handlePost(updatedLog: typeof newLog) {
+function handlePost(updatedLog:any) {
     postLog(updatedLog);
     setItemAdded(true);
     navigate("/log");
@@ -52,7 +51,7 @@ function handlePost(updatedLog: typeof newLog) {
   if (selectedItem._id) {
     return (
       <form className="flex flex-col items-center" onSubmit={handleSubmit}>
-        <img src={selectedItem.imageUrl} className="w-24 m-4"></img>
+        <img alt="selected_item" src={selectedItem.imageUrl} className="w-24 m-4"></img>
 
         <div className="flex">
           <label

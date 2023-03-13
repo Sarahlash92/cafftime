@@ -20,7 +20,7 @@ function App ()  {
   const [todaySum, setTodaySum] = useState <number> (0);
   const [foodDb, setFoodDb] = useState<foobDdp[]>([]);
   const [remaining, setRemaining] = useState <number>(calculateRemaining(logs));
-  const [itemAdded, setItemAdded] = useState(false);
+  const [itemAdded, setItemAdded] = useState<boolean>(false);
   const [remainingByTime, setRemainingByTime] = useState<number[]>([]);
   const [remainingatBedtime, setRemainingatBedTime] = useState<number>(0);
   const [userSetting, setUserSetting] = useState<User>({

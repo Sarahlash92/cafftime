@@ -1,27 +1,14 @@
 import React from 'react';
+import { Food } from '../tsTypes';
 
 type SearchResultProps = {
-   searchResult:  Array<{
-    _id: string;
-    id: string,
-    name: string,
-    baseAmount: number,
-    caffeine: number,
-    imageUrl: string
- }> ,
-   setSelectedItem: React.Dispatch<React.SetStateAction<{}>>,
+   searchResult: Food[] ,
+   setSelectedItem: React.Dispatch<React.SetStateAction<any>>,
 }
 
 function SearchResult({ searchResult, setSelectedItem }:SearchResultProps) {
 
-  const handleClick = (result: {
-      _id: string;
-      id: string,
-      name: string,
-      baseAmount: number,
-      caffeine: number,
-      imageUrl: string
-    }) => {
+  const handleClick = (result: Food) => {
       setSelectedItem(result);
   };
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { Food } from '../tsTypes';
 //FIXME: fix DB : any on ln 5
 
 type SearchProps = {
@@ -12,7 +12,7 @@ type SearchProps = {
      caffeine: number,
      imageUrl: string
   }> ,
-   setSearchResult:  React.Dispatch<React.SetStateAction<never[]>>
+   setSearchResult:  React.Dispatch<React.SetStateAction<any[]>>
 }
 
  type ResultType = {

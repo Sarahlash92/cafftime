@@ -3,30 +3,26 @@ import { useState } from "react";
 import Search from '../components/Search';
 import SearchResult from '../components/SearchResult';
 import DataDetail from '../components/DataDetail';
+import { Food } from '../tsTypes';
 
-type foobDdp = {
-
-  _id: string;
-  name: string;
-  baseAmount: number;
-  caffeine: number;
-  timestamp: string;
-  imageUrl: string;
-
-}
 type foodDbProps = {
-foodDb: foobDdp[]
+foodDb: Food[]
+setItemAdded :  React.Dispatch<React.SetStateAction<boolean>>
 }
-
 
 function AddData({ foodDb, setItemAdded } : foodDbProps) {
-  const [selectedItem, setSelectedItem] = useState<foobDdp>({_id: '', name: '', baseAmount: 0, caffeine: 0, timestamp: '', imageUrl: ''});
-  const [searchResult, setSearchResult] = useState<foobDdp[]>([]);
+  const [selectedItem, setSelectedItem] = useState<Food>({
+    _id: '',
+    id: '',
+    name: '',
+    baseAmount: 0,
+    caffeine: 0,
+    imageUrl: ''});
+  const [searchResult, setSearchResult] = useState<Food[]>([]);
 
-  const handleSelectedItemChange = (item: foobDdp) => {
+  const handleSelectedItemChange = (item: Food) => {
     setSelectedItem(item);
   };
-
 
   return (
     <div className="rounded-t-2xl h-[calc(80vh-64px)] overflow-scroll bg-white relative">

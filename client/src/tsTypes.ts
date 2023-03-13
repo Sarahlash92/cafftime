@@ -7,6 +7,15 @@ export type Food = {
   imageUrl: string;
 }
 
+export type foobDdp = {
+  _id: string;
+  name: string;
+  baseAmount: number;
+  caffeine: number;
+  timestamp: string;
+  imageUrl: string;
+}
+
 export type Logs = {
   _id: string;
   id: string;
@@ -15,8 +24,6 @@ export type Logs = {
   caffeine: number;
   date: Date;
   timestamp : Date;
-  //|bigint|number;
-  //  string: any;
   logs: Logs[];
 };
 
@@ -29,35 +36,20 @@ export type User = {
   sleepTime: string;
 }
 
-export type foobDdp = {
-
-  _id: string;
-  name: string;
-  baseAmount: number;
-  caffeine: number;
-  timestamp: string;
-
-}
-
 export type foobDdpedit= {
-
-
   name: string;
   baseAmount: number;
   caffeine: number;
   timestamp: string;
-
 }
 
-export type DetaDetailProps = {
+export type DataDetailProps = {
   selectedItem : {
-
     _id: string;
     name: string;
     baseAmount: number;
     caffeine: number;
-    timestamp: string;
     imageUrl: string;
-
   };
+  setItemAdded :  React.Dispatch<React.SetStateAction<boolean>>
 }
