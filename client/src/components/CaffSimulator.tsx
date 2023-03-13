@@ -1,7 +1,5 @@
 import React from 'react';
 
-// imported into pages/daily.tsx 
-
 type CaffSimulatorProps = {
   remaining: number;
   remainingatBedtime: number;

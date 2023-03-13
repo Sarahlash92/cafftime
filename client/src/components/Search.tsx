@@ -4,25 +4,11 @@ import { Food } from '../tsTypes';
 
 type SearchProps = {
   database: any ,
-   searchResult: Array<{
-     _id: string;
-     id: string,
-     name: string,
-     baseAmount: number,
-     caffeine: number,
-     imageUrl: string
-  }> ,
+   searchResult: Food[] ,
    setSearchResult:  React.Dispatch<React.SetStateAction<any[]>>
 }
 
- type ResultType = {
-  _id: string;
-  id: string;
-  name: string;
-  baseAmount: number;
-  caffeine: number;
-  imageUrl: string;
-}
+
 function Search({ database, searchResult, setSearchResult, /*setShowList, setShowDetail*/ }: SearchProps) {
   const [searchKeyword, setSearchKeyword] = useState('');
 
@@ -34,7 +20,7 @@ function Search({ database, searchResult, setSearchResult, /*setShowList, setSho
           })
         : [];
 
-    const uniqueResults = filteredResult.filter((result : ResultType)=> {
+    const uniqueResults = filteredResult.filter((result : Food)=> {
       return !searchResult.some(
         existingResult => existingResult.id === result.id
       );

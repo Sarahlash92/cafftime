@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { getLog, deleteLog, editLog } from "../ApiService"
 import React, { useState, useEffect } from "react";
-import {foobDdp,foobDdpedit } from '../tsTypes'
+import {Food, Logs, Logs1, foobDdpedit, foobDdp} from '../tsTypes'
 
 
 function EditData({ itemDeleted }: {itemDeleted:  React.Dispatch<React.SetStateAction<boolean>>}) {
@@ -50,7 +50,7 @@ function EditData({ itemDeleted }: {itemDeleted:  React.Dispatch<React.SetStateA
     handleEdit(updatedLog);
   }
 
-  function handleEdit(updatedLog: foobDdpedit) {
+  function handleEdit(updatedLog: any) {
     editLog(id, updatedLog)
     navigate("/log");
   }

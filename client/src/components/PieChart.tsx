@@ -3,7 +3,7 @@ import { User } from '../tsTypes';
 
 type PieChartProps = {
   todaySum : number,
-  userSetting : any}
+  userSetting : User}
 
 function PieChart({ todaySum , userSetting }: PieChartProps) {
   const left = userSetting.dailyLimit - todaySum > 0 ? userSetting.dailyLimit - todaySum : 0;

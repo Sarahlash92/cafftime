@@ -12,20 +12,7 @@ type DailyProps = {
   remainingatBedtime: number;
   userSetting: User
     
-    // _id: string;
-    // email: string;
-    // password: string;
-    // dailyLimit: number;
-    // sleepTreshold: number;
-    // sleepTime: string;
-    // dailyLimit: number;
-    // sensitivity: number;
-    // startTime: string;
-    // endTime: string;
-    // bedTime: string;
-  
 }
-
 
 const Daily: React.FC<DailyProps> = ({ todaySum, remaining, remainingByTime, remainingatBedtime, userSetting }) =>  {
   return (

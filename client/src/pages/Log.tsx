@@ -10,12 +10,12 @@ function Log({ logs }: {logs: Logs[]}) {
         {logs.map((log :Logs) => {
 
           return (
-            <div className="border-b-2 py-4" key ={log.date.toString()}>
-              <p className="text-2xl font-bold text-left">{log.date.toString()}</p>
+            <div className="border-b-2 py-4" key ={log.date?.toString()}>
+              <p className="text-2xl font-bold text-left">{log.date?.toString()}</p>
               <p className="text-2xl font-bold text-left">
                 Total Caffeine{" "}
                 <span className="text-2xl font-bold text-red-500">
-                  {log.logs.reduce((acc: number, log: Logs) => {
+                  {log.logs?.reduce((acc: number, log: Logs) => {
                     acc = acc + log.caffeine;
                     return acc;
                   }, 0)}
@@ -23,7 +23,7 @@ function Log({ logs }: {logs: Logs[]}) {
                   mg{" "}
                 </span>
               </p>
-              {log.logs.map((item:Logs) => {
+              {log.logs?.map((item:Logs) => {
                 const detailUrl = `/log/edit/${item._id}`;
                 return (
                   <Link
