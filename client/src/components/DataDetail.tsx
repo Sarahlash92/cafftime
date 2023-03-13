@@ -6,9 +6,13 @@ import { DataDetailProps } from '../tsTypes'
 
 function DataDetail({ selectedItem, setItemAdded }: DataDetailProps ) {
 
+  console.log('selectedItems', selectedItem);
+  
   const navigate = useNavigate();
   const [newLog, setNewLog] = useState({ ...selectedItem });
   const caffeineRatio = selectedItem.caffeine / selectedItem.baseAmount;
+
+ 
 
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -26,6 +30,7 @@ function DataDetail({ selectedItem, setItemAdded }: DataDetailProps ) {
         [e.target.name]: e.target.value,
       });
     }
+    console.log('new log', newLog);
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -37,6 +42,8 @@ function DataDetail({ selectedItem, setItemAdded }: DataDetailProps ) {
       caffeine:Number( e.currentTarget.caffeine.value),
       timestamp: e.currentTarget.timestamp.value,
     };
+    // TODO name is deprecated 
+    console.log('name', updatedLog);
     setNewLog(updatedLog);
     handlePost(updatedLog);
   }

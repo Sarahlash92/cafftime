@@ -11,13 +11,10 @@ setItemAdded :  React.Dispatch<React.SetStateAction<boolean>>
 }
 
 function AddData({ foodDb, setItemAdded } : foodDbProps) {
-  const [selectedItem, setSelectedItem] = useState<Food>({
-    _id: '',
-    id: '',
-    name: '',
-    baseAmount: 0,
-    caffeine: 0,
-    imageUrl: ''});
+  const [selectedItem, setSelectedItem] = useState<any>({
+  
+  });
+    
   const [searchResult, setSearchResult] = useState<Food[]>([]);
 
   const handleSelectedItemChange = (item: Food) => {

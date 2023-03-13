@@ -31,16 +31,16 @@
 //   timezone: string;
 // }
 
-// export type foobDdp = {
+export type foobDdp = {
 
-//   _id: string;
-//   name: string;
-//   baseAmount: number;
-//   caffeine: number;
-//   timestamp: string;
-//   imageUrl?: string;
+  _id: string;
+  name: string;
+  baseAmount: number;
+  caffeine: number;
+  timestamp: string;
+  imageUrl?: string;
 
-// }
+}
 
 // export type foobDdpedit= {
 
@@ -90,7 +90,7 @@ export type Food = {
   baseAmount: number;
   caffeine: number;
   imageUrl?: string;
-  timestamp?: number | string | Date;
+  timestamp: string ;
 }
 
 // export type foobDdp = {
@@ -102,6 +102,16 @@ export type Food = {
 //   imageUrl?: string;
 // }
 
+export type setLogs = {
+  _id: string;
+  id: string;
+  name: string;
+  baseAmount: number;
+  caffeine: number;
+  date: number | string | Date;
+  timestamp: number | string | Date;
+  logs: Logs[];
+}
 
 export type Logs = {
   _id?: string;
@@ -110,20 +120,8 @@ export type Logs = {
   baseAmount: number;
   caffeine: number;
   date?: number | string | Date;
-  timestamp? : number | string | Date;
-  logs?: Logs[];
-  
-};
-
-export type Logs1 = {
-  _id: string;
-  id: string;
-  name: string;
-  baseAmount: number;
-  caffeine: number;
-  date: number | string | Date;
   timestamp : number | string | Date;
-  logs: Logs[];
+  logs?: Logs[];
   
 };
 
@@ -143,6 +141,9 @@ export type foobDdpedit= {
   caffeine: number;
   timestamp: string;
 }
+
+
+
 export type DataDetailProps = {
   selectedItem :Food;
   setItemAdded: React.Dispatch<React.SetStateAction<boolean>>

@@ -30,13 +30,14 @@ export const getLog = async (id:string | undefined) => {
   return response;
 };
 
-export const postLog = async (newLog : Logs) => {
+export const postLog = async (newLog : any) => {
   const response = await fetch(URL + "/add", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newLog),
   });
 
+  console.log('new', newLog);
   return response.json();
 };
 
@@ -48,7 +49,7 @@ export const deleteLog = async (id: string | undefined) => {
   return response;
 };
 
-export const editLog = async (id: string | undefined, editedLog: foobDdpedit) => {
+export const editLog = async (id: string | undefined, editedLog: any) => {
   const response = await fetch(URL + "/log/edit/" + id, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },

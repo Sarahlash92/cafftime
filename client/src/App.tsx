@@ -10,15 +10,14 @@ import AddData from './pages/AddData';
 import EditData from './pages/EditData';
 import Setting from "./pages/Setting";
 import { calculateRemaining, setGraphTime, setGraphTimeforTomorrow } from './Utilities';
-
-import { Logs, Food, foobDdp, foobDdpedit, DetaDetailProps, User } from './tsTypes';
+import { Logs, Food, User, setLogs } from './tsTypes';
 
 function App ()  {
   const location = useLocation();
-  const [logs, setLogs] = useState <Logs[]> ([]);
-  const [flattenedLogs, setFlattenedLogs] = useState([]);
+  const [logs, setLogs] = useState <any[]> ([]);
+  const [flattenedLogs, setFlattenedLogs] = useState<any[]>([]);
   const [todaySum, setTodaySum] = useState <number> (0);
-  const [foodDb, setFoodDb] = useState<foobDdp[]>([]);
+  const [foodDb, setFoodDb] = useState<Food[]>([]);
   const [remaining, setRemaining] = useState <number>(calculateRemaining(logs));
   const [itemAdded, setItemAdded] = useState(false);
   const [remainingByTime, setRemainingByTime] = useState<number[]>([]);
@@ -90,7 +89,7 @@ function App ()  {
 
     setFlattenedLogs(logs.flatMap((log) => log.logs));
 
-    function filterLogByTime (logs, time) {
+    function filterLogByTime (logs: Food[], time: Number) {
       const filteredLogByTime = logs.filter(
         (log) => Date.parse(log.timestamp) < time
       );
@@ -139,6 +138,7 @@ function App ()  {
             path="/"
             element={
               <Daily
+                Logs={logs}
                 todaySum={todaySum}
                 remaining={remaining}
                 remainingByTime={remainingByTime}
@@ -172,7 +172,7 @@ function App ()  {
           element={
             <Daily
               todaySum={todaySum}
-              logs={logs}
+              Logs={logs}
               remaining={remaining}
               remainingByTime={remainingByTime}
               remainingatBedtime={remainingatBedtime}
@@ -180,8 +180,8 @@ function App ()  {
             />
           }
         />
-        <Route path="/add" element={<AddData />} />
-        <Route path="/log/edit/:id" element={<EditData />} />
+        <Route path="/add" element={<AddData setItemAdded={setItemAdded} foodDb={foodDb} />} />
+        <Route path="/log/edit/:id" element={<EditData itemDeleted={setItemAdded}/>} />
         <Route
           path="/setting"
           element={

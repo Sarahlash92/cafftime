@@ -2,7 +2,7 @@ import React from 'react';
 import CaffSimulator from '../components/CaffSimulator';
 import LineGraph from '../components/LineGraph';
 import PieChart from '../components/PieChart';
-import {User} from '../tsTypes';
+import {User, Logs} from '../tsTypes';
 
 type DailyProps = {
 
@@ -10,7 +10,8 @@ type DailyProps = {
   remaining: number;
   remainingByTime: number[];
   remainingatBedtime: number;
-  userSetting: User
+  userSetting: User;
+  Logs: any[];
     
 }
 

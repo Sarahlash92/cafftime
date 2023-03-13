@@ -21,8 +21,7 @@ function LineGraph({ remainingByTime, userSetting } : LineGraphProps) {
   for (let i = 6; i <= 28; i++) {
     const dt = DateTime.fromObject({
       hour: i % 24,
-      zone: userSetting.timezone,
-    });
+    }).setZone(userSetting.timezone);
     labels.push(dt.toFormat("ha"));
   }
 
