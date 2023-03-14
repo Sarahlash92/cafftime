@@ -10,7 +10,7 @@ import AddData from './pages/AddData';
 import EditData from './pages/EditData';
 import Setting from "./pages/Setting";
 import { calculateRemaining, setGraphTime, setGraphTimeforTomorrow } from './Utilities';
-import { Logs, Food, User, setLogs } from './tsTypes';
+import { Logs, Food, User } from './tsTypes';
 
 function App ()  {
   const location = useLocation();
@@ -53,7 +53,6 @@ function App ()  {
   }, []);
 
   /* Get user logs grouped by date*/
-
   useEffect(() => {
     getLogs()
       .then((res) => {

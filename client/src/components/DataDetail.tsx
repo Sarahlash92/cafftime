@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { postLog } from '../ApiService';
-import { DataDetailProps } from '../tsTypes'
+import { Food } from '../tsTypes'
 
+export type DataDetailProps = {
+  selectedItem :Food;
+  setItemAdded: React.Dispatch<React.SetStateAction<boolean>>
+}
 
 function DataDetail({ selectedItem, setItemAdded }: DataDetailProps ) {
 
@@ -45,9 +49,8 @@ function DataDetail({ selectedItem, setItemAdded }: DataDetailProps ) {
       caffeine:Number( e.currentTarget.caffeine.value),
       timestamp: e.currentTarget.timestamp.value,
     };
-    // TODO name is deprecated
-    console.log('new log', newLog);
-    console.log('name', updatedLog);
+    // console.log('new log', newLog);
+    // console.log('name', updatedLog);
     setNewLog(updatedLog);
     handlePost(updatedLog);
   }

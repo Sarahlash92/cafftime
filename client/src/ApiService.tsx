@@ -1,11 +1,10 @@
-import { Logs, foobDdpedit} from './tsTypes';
+// import { Logs, foobDdpedit} from './tsTypes';
+const {REACT_APP_baseURL} = process.env;
 
 
-
-const URL = "http://localhost:4000";
 /* api service for food DB*/
 export const getDatabase = async () => {
-  const response = await fetch(URL + "/db")
+  const response = await fetch( `${REACT_APP_baseURL}/db`)
     .then((res) => res.json())
 
   return response;
@@ -13,7 +12,7 @@ export const getDatabase = async () => {
 
 /* api service for log DB*/
 export const getLogs = async () => {
-  const response = await fetch(URL + "/log")
+  const response = await fetch(`${REACT_APP_baseURL}/log`)
     .then((res) => res.json())
     .then((data) => data.sort((a: { timestamp: string }, b: { timestamp: string }) => {
       return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
@@ -24,25 +23,25 @@ export const getLogs = async () => {
 };
 
 export const getLog = async (id:string | undefined) => {
-  const response = await fetch(URL + "/log/edit/" + id)
+  const response = await fetch(`${REACT_APP_baseURL}/log/edit/${id}`)
     .then((res) => res.json())
 
   return response;
 };
 
 export const postLog = async (newLog : any) => {
-  const response = await fetch(URL + "/add", {
+  const response = await fetch(`${REACT_APP_baseURL}/add`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newLog),
   });
 
-  console.log('new', newLog);
+  // console.log('new', newLog);
   return response.json();
 };
 
 export const deleteLog = async (id: string | undefined) => {
-  const response = await fetch(URL + "/log/edit/" + id, {
+  const response = await fetch(`${REACT_APP_baseURL}/log/edit/${id}`, {
     method: "DELETE"
   })
 
@@ -50,7 +49,7 @@ export const deleteLog = async (id: string | undefined) => {
 };
 
 export const editLog = async (id: string | undefined, editedLog: any) => {
-  const response = await fetch(URL + "/log/edit/" + id, {
+  const response = await fetch(`${REACT_APP_baseURL}/log/edit/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(editedLog),

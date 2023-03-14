@@ -1,32 +1,16 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {User} from '../tsTypes'
+import { User } from '../tsTypes'
 
-type UserSetting = {
-  dailyLimit: number;
-  sleepTreshold: number;
-  sleepTime: string;
-}
 
 type SettingProps = {
-  userSetting: UserSetting;
+  userSetting: User;
   setUserSetting: React.Dispatch<React.SetStateAction<User>>;
 };
 
-interface IeditedSetting {
-  dailyLimit: number;
-  sleepTreshold: number;
-  sleepTime: string;
-}
-interface FormSmth {
-  dailyLimit: {value : string};
-  sleepTreshold:  {value : string};
-  sleepTime:  {value : string};
-}
-
 function Setting({ userSetting, setUserSetting } : SettingProps) {
   const navigate = useNavigate();
-  const [editedSetting, setEditedSetting] = useState <IeditedSetting> ({ ...userSetting });
+  const [editedSetting, setEditedSetting] = useState <User> ({ ...userSetting });
 
   function handleChange(e:  React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement> ) {
     setEditedSetting({
@@ -35,17 +19,20 @@ function Setting({ userSetting, setUserSetting } : SettingProps) {
     });
   }
 
-
   function handleSubmit(e: React.FormEvent<HTMLFormElement> ) {
     e.preventDefault();
-    const FormValues = e.target as unknown as FormSmth;
+    const target = e.target as typeof e.target & {
+      dailyLimit: { value: number };
+      sleepTreshold: { value: number };
+      sleepTime: { value: string };
+    };
     const updatedSetting = {
       ...editedSetting,
-      //TODO: zod - validation
-      dailyLimit: +FormValues.dailyLimit.value,
-      sleepTreshold: +FormValues.sleepTreshold.value,
-      sleepTime: FormValues.sleepTime.value,
+      dailyLimit: target.dailyLimit.value,
+      sleepTreshold: target.sleepTreshold.value,
+      sleepTime: target.sleepTime.value,
     };
+
     setEditedSetting(updatedSetting);
     localStorage.setItem("userSetting", JSON.stringify(updatedSetting));
     handleEdit();
