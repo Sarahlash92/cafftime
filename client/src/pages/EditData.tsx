@@ -1,18 +1,21 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { getLog, deleteLog, editLog } from "../ApiService"
 import React, { useState, useEffect } from "react";
-import { foobDdpedit, foobDdp} from '../tsTypes'
+import { Food } from '../tsTypes'
 
 
 function EditData({ itemDeleted }: {itemDeleted:  React.Dispatch<React.SetStateAction<boolean>>}) {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [selectedLog, setSelectedLog] = useState<foobDdp>({ _id: '', name: '', baseAmount: 0, caffeine: 0, timestamp: ''});
-  const [editedLog, setEditedLog] = useState<foobDdpedit>({ ...selectedLog })
+  const [selectedLog, setSelectedLog] = useState<any>({});
+  const [editedLog, setEditedLog] = useState<Food>({ ...selectedLog })
   const caffeineRatio = selectedLog.caffeine / selectedLog.baseAmount;
 
   useEffect(() => {
-    getLog(id).then((res) => setSelectedLog(res))
+    getLog(id)
+    .then((res) => setSelectedLog(res))
+    .catch((error)=>console.log(error)
+    )
   }, [])
 
   function handleDelete() {
@@ -20,7 +23,7 @@ function EditData({ itemDeleted }: {itemDeleted:  React.Dispatch<React.SetStateA
     itemDeleted(true);
     navigate("/log");
   }
-
+//TODO:We don't have to run the parseInt(e.target.value, 10) operation twice inside this function. Run once, store in a variable, re-use. ♻️
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.name === "baseAmount") {
       const caffeineValue = Math.round(caffeineRatio * parseInt(e.target.value, 10));

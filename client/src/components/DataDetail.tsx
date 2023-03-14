@@ -9,19 +9,12 @@ export type DataDetailProps = {
 }
 
 function DataDetail({ selectedItem, setItemAdded }: DataDetailProps ) {
-
-  console.log('selectedItems', selectedItem);
-
   const navigate = useNavigate();
   const [newLog, setNewLog] = useState({ ...selectedItem });
   const caffeineRatio = selectedItem.caffeine / selectedItem.baseAmount;
-  console.log('this is the newLog ', newLog);
-
-
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.name === "baseAmount") {
-
       const caffeineValue = Math.round(caffeineRatio * Number(e.target.value));
       setNewLog({
         ...newLog,
@@ -34,14 +27,13 @@ function DataDetail({ selectedItem, setItemAdded }: DataDetailProps ) {
         [e.target.name]: e.target.value,
       });
     }
-
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const updatedLog = {
       ...newLog,
-      // name: newLog.name,
+      //TODO
       //@ts-ignore
       name: e.target.name.value,
 
@@ -49,8 +41,6 @@ function DataDetail({ selectedItem, setItemAdded }: DataDetailProps ) {
       caffeine:Number( e.currentTarget.caffeine.value),
       timestamp: e.currentTarget.timestamp.value,
     };
-    // console.log('new log', newLog);
-    // console.log('name', updatedLog);
     setNewLog(updatedLog);
     handlePost(updatedLog);
   }

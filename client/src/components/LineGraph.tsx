@@ -8,11 +8,7 @@ import { User } from '../tsTypes'
 type LineGraphProps = {
   remainingByTime: number[],
   userSetting : User
-    // timezone: string;
-    // sleepTreshold: number;
-    // sleepTime: string;
 }
-//TODO: ln 10 dayly limit???
 
 ChartJS.register(annotationPlugin, Tooltip);
 

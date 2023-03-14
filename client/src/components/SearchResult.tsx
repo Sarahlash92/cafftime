@@ -9,7 +9,7 @@ type SearchResultProps = {
 function SearchResult({ searchResult, setSelectedItem }:SearchResultProps) {
 
   const handleClick = (result: Food) => {
-    console.log('result of search');
+    console.log('result of search:', result);
       setSelectedItem(result);
   };
 

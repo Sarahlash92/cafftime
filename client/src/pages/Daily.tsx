@@ -5,14 +5,12 @@ import PieChart from '../components/PieChart';
 import {User, Logs} from '../tsTypes';
 
 type DailyProps = {
-
   todaySum: number;
   remaining: number;
   remainingByTime: number[];
   remainingatBedtime: number;
   userSetting: User;
-  Logs: any[];
-    
+  Logs: Logs[];
 }
 
 const Daily: React.FC<DailyProps> = ({ todaySum, remaining, remainingByTime, remainingatBedtime, userSetting }) =>  {

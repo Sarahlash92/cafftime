@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import { Food } from '../tsTypes';
-//FIXME: fix DB : any on ln 5
 
 type SearchProps = {
   database: any ,
    searchResult: Food[] ,
    setSearchResult:  React.Dispatch<React.SetStateAction<any[]>>
 }
-
 
 function Search({ database, searchResult, setSearchResult, /*setShowList, setShowDetail*/ }: SearchProps) {
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -27,7 +25,6 @@ function Search({ database, searchResult, setSearchResult, /*setShowList, setSho
     });
     setSearchResult(uniqueResults);
   }, [searchKeyword]);
-//TODO: check if useEffect works
 
   function handleChange(e:  React.ChangeEvent<HTMLInputElement>) {
     const keyword = e.target.value.toLowerCase();
@@ -35,7 +32,6 @@ function Search({ database, searchResult, setSearchResult, /*setShowList, setSho
     // setShowList(true);
     // setShowDetail(false);
   }
-
 
   return (
     <div>
