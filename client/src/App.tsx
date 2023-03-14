@@ -53,7 +53,7 @@ function App ()  {
   }, []);
 
   /* Get user logs grouped by date*/
-  //FIXME: RECURSIVE CALL
+
   useEffect(() => {
     getLogs()
       .then((res) => {
@@ -76,7 +76,8 @@ function App ()  {
 
         setLogs(groupedLogsArray);
 
-        if (groupedLogsArray[0].date === new Date().toDateString()) {
+        //TODO : go back to here
+        if (groupedLogsArray[0]?.date === new Date().toDateString()) {
           setTodaySum(
             groupedLogsArray[0].logs.reduce((acc, log) => {
               acc = acc + log.caffeine;

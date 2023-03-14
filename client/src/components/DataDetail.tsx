@@ -11,7 +11,7 @@ function DataDetail({ selectedItem, setItemAdded }: DataDetailProps ) {
   const navigate = useNavigate();
   const [newLog, setNewLog] = useState({ ...selectedItem });
   const caffeineRatio = selectedItem.caffeine / selectedItem.baseAmount;
-
+  console.log('this is the newLog ', newLog);
  
 
 
@@ -30,7 +30,7 @@ function DataDetail({ selectedItem, setItemAdded }: DataDetailProps ) {
         [e.target.name]: e.target.value,
       });
     }
-    console.log('new log', newLog);
+    
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -43,6 +43,8 @@ function DataDetail({ selectedItem, setItemAdded }: DataDetailProps ) {
       timestamp: e.currentTarget.timestamp.value,
     };
     // TODO name is deprecated 
+    console.log('new log', newLog);
+    console.log('name ++ ', newLog.name);
     console.log('name', updatedLog);
     setNewLog(updatedLog);
     handlePost(updatedLog);
