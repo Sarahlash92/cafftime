@@ -25,7 +25,7 @@ exports.getLog = async  (ctx : Context ) : Promise <void>=> {
 exports.postLog = async   (ctx : Context ) : Promise <void>=> {
   try {
     ctx.status = 201;
-    ctx.body = await logs.create(ctx.Request.body);
+    ctx.body = await logs.create(ctx.request.body);
   } catch (e) {
     ctx.status = 500;
     console.log("Internal Server Error", e);
@@ -48,7 +48,8 @@ exports.editLog = async (ctx : Context ) : Promise <void> => {
   try {
     const { id } = ctx.params;
     ctx.status = 200;
-    ctx.body = await logs.findByIdAndUpdate(id, ctx.Request.body);
+    //@ts-ignore
+    ctx.body = await logs.findByIdAndUpdate(id, ctx.request.body);
   } catch (e) {
     ctx.status = 500;
     console.log("Internal Server Error", e);

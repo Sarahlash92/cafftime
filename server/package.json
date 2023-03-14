@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "npx ts-node index.ts"
   },
   "author": "",
   "license": "ISC",
@@ -19,5 +20,8 @@
     "mongoose": "^7.0.0",
     "nodemon": "^2.0.21",
     "source-map-loader": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/koa-bodyparser": "^4.3.10"
   }
 }
