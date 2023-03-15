@@ -36,7 +36,6 @@ export const postLog = async (newLog : Logs) => {
     body: JSON.stringify(newLog),
   });
 
-  // console.log('new', newLog);
   return response.json();
 };
 
@@ -54,6 +53,7 @@ export const editLog = async (id: string, editedLog:Logs) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(editedLog),
   });
+
 
   return response.json();
 };
