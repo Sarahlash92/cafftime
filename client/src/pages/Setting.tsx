@@ -72,7 +72,7 @@ function Setting({ userSetting, setUserSetting } : SettingProps) {
             name="dailyLimit"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 "
             defaultValue={userSetting.dailyLimit}
-            value={editedSetting.dailyLimit}
+            //value={editedSetting.dailyLimit}
             onChange={handleChange}
             required
           />
@@ -96,7 +96,7 @@ function Setting({ userSetting, setUserSetting } : SettingProps) {
             name="sleepTreshold"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 "
             defaultValue={userSetting.sleepTreshold}
-            value={editedSetting.sleepTreshold}
+            //value={editedSetting.sleepTreshold}
             onChange={handleChange}
             required
           />
@@ -124,7 +124,7 @@ function Setting({ userSetting, setUserSetting } : SettingProps) {
             name="sleepTime"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             defaultValue={userSetting.sleepTime}
-            value={editedSetting.sleepTime}
+            //value={editedSetting.sleepTime}
             onChange={handleChange}
             required
           >

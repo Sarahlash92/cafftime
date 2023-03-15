@@ -84,7 +84,7 @@ function EditData({ itemDeleted }: {itemDeleted:  React.Dispatch<React.SetStateA
             name="name"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             defaultValue={selectedLog.name}
-            value={editedLog.name}
+            //value={editedLog.name}
             onChange={handleChange}
             required
           />
@@ -103,7 +103,7 @@ function EditData({ itemDeleted }: {itemDeleted:  React.Dispatch<React.SetStateA
             name="baseAmount"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             defaultValue={selectedLog.baseAmount}
-            value={editedLog.baseAmount}
+            //value={editedLog.baseAmount}
             onChange={handleChange}
             required
           />
@@ -123,7 +123,7 @@ function EditData({ itemDeleted }: {itemDeleted:  React.Dispatch<React.SetStateA
             name="caffeine"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             defaultValue={selectedLog.caffeine}
-            value={editedLog.caffeine}
+           // value={editedLog.caffeine}
             required
           />{" "}
           mg
@@ -140,7 +140,7 @@ function EditData({ itemDeleted }: {itemDeleted:  React.Dispatch<React.SetStateA
             id="timestamp"
             name="timestamp"
             defaultValue={formattedTimestamp}
-            value={editedLog.timestamp}
+            //value={editedLog.timestamp}
             onChange={handleChange}
             required
           />

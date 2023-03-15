@@ -35,7 +35,6 @@ function DataDetail({ selectedItem, setItemAdded }: DataDetailProps ) {
       ...newLog,
       //@ts-ignore
       name: e.target.name.value,
-
       baseAmount: Number(e.currentTarget.baseAmount.value),
       caffeine:Number( e.currentTarget.caffeine.value),
       timestamp: e.currentTarget.timestamp.value,
@@ -70,7 +69,7 @@ function handlePost(updatedLog:Logs) {
             name="name"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             defaultValue={selectedItem.name}
-            value={newLog.name}
+           // value={newLog.name}
             onChange={handleChange}
             required
           />
@@ -89,7 +88,7 @@ function handlePost(updatedLog:Logs) {
             name="baseAmount"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             defaultValue={selectedItem.baseAmount}
-            value={newLog.baseAmount}
+          // value={newLog.baseAmount}
             onChange={handleChange}
             required
           />
@@ -109,7 +108,7 @@ function handlePost(updatedLog:Logs) {
             name="caffeine"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             defaultValue={selectedItem.caffeine}
-            value={newLog.caffeine}
+           // value={newLog.caffeine}
             required
           />{" "}
           mg
@@ -126,7 +125,7 @@ function handlePost(updatedLog:Logs) {
             id="timestamp"
             name="timestamp"
             defaultValue={new Date().toISOString().slice(0, 16)}
-            value={newLog.timestamp}
+            //value={newLog.timestamp}
             onChange={handleChange}
             required
           />
