@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Food } from '../tsTypes';
 
 type SearchProps = {
-  database: any ,
+  database: Food[] ,
    searchResult: Food[] ,
    setSearchResult:  React.Dispatch<React.SetStateAction<any[]>>
 }

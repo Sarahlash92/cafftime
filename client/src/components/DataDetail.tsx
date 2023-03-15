@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { postLog } from '../ApiService';
-import { Food } from '../tsTypes'
+import { Food,Logs } from '../tsTypes'
 
 export type DataDetailProps = {
   selectedItem :Food;
@@ -10,7 +10,7 @@ export type DataDetailProps = {
 
 function DataDetail({ selectedItem, setItemAdded }: DataDetailProps ) {
   const navigate = useNavigate();
-  const [newLog, setNewLog] = useState({ ...selectedItem });
+  const [newLog, setNewLog] = useState <Food>({ ...selectedItem });
   const caffeineRatio = selectedItem.caffeine / selectedItem.baseAmount;
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -33,7 +33,6 @@ function DataDetail({ selectedItem, setItemAdded }: DataDetailProps ) {
     e.preventDefault();
     const updatedLog = {
       ...newLog,
-      //TODO
       //@ts-ignore
       name: e.target.name.value,
 
@@ -42,10 +41,11 @@ function DataDetail({ selectedItem, setItemAdded }: DataDetailProps ) {
       timestamp: e.currentTarget.timestamp.value,
     };
     setNewLog(updatedLog);
+      //@ts-ignore
     handlePost(updatedLog);
   }
 
-function handlePost(updatedLog:any) {
+function handlePost(updatedLog:Logs) {
     postLog(updatedLog);
     setItemAdded(true);
     navigate("/log");

@@ -1,5 +1,5 @@
 import logs from '../models/logs';
-import { Context, Request } from 'koa';
+import { Context } from 'koa';
 
 exports.getLogs = async  (ctx : Context ) : Promise <void>=> {
   try {

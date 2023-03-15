@@ -14,7 +14,7 @@ import { Logs, Food, User } from './tsTypes';
 function App ()  {
   const location = useLocation();
   const [logs, setLogs] = useState <any[]> ([]);
-  const [flattenedLogs, setFlattenedLogs] = useState<any[]>([]);
+  // const [flattenedLogs, setFlattenedLogs] = useState<any[]>([]);
   const [todaySum, setTodaySum] = useState <number> (0);
   const [foodDb, setFoodDb] = useState<Food[]>([]);
   const [remaining, setRemaining] = useState <number>(calculateRemaining(logs));
@@ -26,7 +26,6 @@ function App ()  {
     sleepTreshold: 50,
     sleepTime: "10PM",
   });
-  
   /* set time for line graph*/
   const times : number[] = [];
   for (let i = 6; i <= 24; i++) {

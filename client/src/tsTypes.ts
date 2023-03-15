@@ -1,7 +1,7 @@
 
 export type Food = {
   _id?: string;
-  id?: string;
+  id: string;
   name: string;
   baseAmount: number;
   caffeine: number;
@@ -11,7 +11,7 @@ export type Food = {
 
 export type Logs = {
   _id?: string;
-  id?: string;
+  id: string;
   name: string;
   baseAmount: number;
   caffeine: number;

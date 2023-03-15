@@ -5,16 +5,16 @@ import SearchResult from '../components/SearchResult';
 import DataDetail from '../components/DataDetail';
 import { Food } from '../tsTypes';
 
-type foodDbProps = {
+type AddDataProps = {
 foodDb: Food[]
 setItemAdded :  React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function AddData({ foodDb, setItemAdded } : foodDbProps) {
+function AddData({ foodDb, setItemAdded } : AddDataProps) {
   const [selectedItem, setSelectedItem] = useState<any>({
-  
+
   });
-    
+
   const [searchResult, setSearchResult] = useState<Food[]>([]);
 
   const handleSelectedItemChange = (item: Food) => {

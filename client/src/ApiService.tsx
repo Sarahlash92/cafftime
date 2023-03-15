@@ -1,4 +1,4 @@
-// import { Logs, foobDdpedit} from './tsTypes';
+ import { Logs} from './tsTypes';
 const {REACT_APP_baseURL} = process.env;
 
 
@@ -22,14 +22,14 @@ export const getLogs = async () => {
   return response;
 };
 
-export const getLog = async (id:string | undefined) => {
+export const getLog = async (id:string ) => {
   const response = await fetch(`${REACT_APP_baseURL}/log/edit/${id}`)
     .then((res) => res.json())
 
   return response;
 };
 
-export const postLog = async (newLog : any) => {
+export const postLog = async (newLog : Logs) => {
   const response = await fetch(`${REACT_APP_baseURL}/add`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -40,7 +40,7 @@ export const postLog = async (newLog : any) => {
   return response.json();
 };
 
-export const deleteLog = async (id: string | undefined) => {
+export const deleteLog = async (id: string ) => {
   const response = await fetch(`${REACT_APP_baseURL}/log/edit/${id}`, {
     method: "DELETE"
   })
@@ -48,7 +48,7 @@ export const deleteLog = async (id: string | undefined) => {
   return response;
 };
 
-export const editLog = async (id: string | undefined, editedLog: any) => {
+export const editLog = async (id: string, editedLog:Logs) => {
   const response = await fetch(`${REACT_APP_baseURL}/log/edit/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
