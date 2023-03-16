@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
+    "test-async": "jest --detectOpenHandles",
     "test:watch": "jest --watch",
     "server": "npx ts-node index.ts"
   },

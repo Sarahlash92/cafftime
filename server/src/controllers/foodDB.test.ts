@@ -9,22 +9,23 @@ import router from '../router';
 const bodyParser = require('koa-bodyparser');
 // const superTest = require('supertest');
 const request = require('supertest');
+const app = require ('./../index')
 
-const Food = require('./../models/food');
-const mongoose = require('mongoose');
+// const Food = require('./../models/food');
+const mongoose = require('./../models/index');
 const { describe, afterEach, default: test } = require('node:test');
 
-
-
-describe('Tests', () => {
-  const app = new Koa();
+const app = new Koa();
   app.use(bodyParser())
     .use(router.routes());
   const server = app.listen();
 
-  beforeAll(async () => {
-    await mongoose.connect(`${db_url}${dbName}`);
-  });
+describe('Tests', () => {
+
+
+  // beforeAll(async () => {
+  //   await mongoose.connect(`${db_url}${dbName}`);
+  // });
 
   it('GET /db should return an array', async () => {
     const res = await request(server).get('/db');
