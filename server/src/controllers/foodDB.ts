@@ -8,7 +8,8 @@ exports.getDataBase = async (ctx: Context) :Promise <void> => {
     ctx.status = 200;
     ctx.body = await food.find();
   } catch (e) {
-    ctx.status = 500;
-    console.log("Internal Server Error", e);
+    ctx.status = (500)
+    ctx.body = "There was an issue"
+    console.log("Internal Server Error: ", e);
   }
 };

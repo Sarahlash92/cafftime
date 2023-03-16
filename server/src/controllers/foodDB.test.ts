@@ -7,41 +7,44 @@ const db_url = process.env.DB_URL;
 const Koa = require('koa');
 import router from '../router';
 const bodyParser = require('koa-bodyparser');
-const superTest = require('supertest');
+// const superTest = require('supertest');
+const request = require('supertest');
+
 const Food = require('./../models/food');
 const mongoose = require('mongoose');
 const { describe, afterEach, default: test } = require('node:test');
+
+
 
 describe('Tests', () => {
   const app = new Koa();
   app.use(bodyParser())
     .use(router.routes());
-  const request = superTest(app);
+  const server = app.listen();
 
   beforeAll(async () => {
     await mongoose.connect(`${db_url}${dbName}`);
-});
+  });
 
-  it('GET /db', async () => {
-    const res = await request.get('/db');
+  it('GET /db should return an array', async () => {
+    const res = await request(server).get('/db');
     expect(res.status).toEqual(200);
+  });
+
+  it('GET /db should return an array', async () => {
+    const res = await request(server).get('/db');
     expect(Array.isArray(res.body)).toBe(true);
   });
 
-
-});
-
-// afterEach(async () => {
-//   await Food.deleteMany({});
-// });
-
-// afterAll(async () => {
-//   await mongoose.connection.close();
-// });
-
-it('should test something',  ()=>{
-   // Your code here...
-    expect( 1 ).toBe( 1 );
+  it('GET /bd should return status 404', async () => {
+    const res = await request(server).get('/bd');
+    expect(res.statusCode).toEqual(404);
   });
 
+  afterAll(async () => {
+    await mongoose.connection.close();
+    server.close();
+  });
+
+});
 
