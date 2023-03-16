@@ -1,5 +1,6 @@
 import logs from '../models/logs';
 import { Context } from 'koa';
+import koaBody from 'koa-bodyparser';
 
 exports.getLogs = async  (ctx : Context ) : Promise <void>=> {
   try {
