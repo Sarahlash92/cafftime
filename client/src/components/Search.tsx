@@ -1,31 +1,37 @@
 import { useState, useEffect } from "react";
+import { Food } from '../tsTypes';
 
-function Search({ database, searchResult, setSearchResult, /*setShowList, setShowDetail*/ }) {
+type SearchProps = {
+  database: Food[] ,
+   searchResult: Food[] ,
+   setSearchResult:  React.Dispatch<React.SetStateAction<any[]>>
+}
+
+function Search({ database, searchResult, setSearchResult, /*setShowList, setShowDetail*/ }: SearchProps) {
   const [searchKeyword, setSearchKeyword] = useState('');
 
   useEffect(() => {
     const filteredResult =
       searchKeyword.length > 0
-        ? database.filter((item) => {
+        ? database.filter((item:{name:string}) => {
             return item.name.toLowerCase().includes(searchKeyword);
           })
         : [];
 
-    const uniqueResults = filteredResult.filter((result) => {
+    const uniqueResults = filteredResult.filter((result : Food)=> {
       return !searchResult.some(
-        (existingResult) => existingResult.id === result.id
+        existingResult => existingResult.id === result.id
       );
     });
     setSearchResult(uniqueResults);
   }, [searchKeyword]);
 
-  function handleChange(e) {
+  function handleChange(e:  React.ChangeEvent<HTMLInputElement>) {
     const keyword = e.target.value.toLowerCase();
     setSearchKeyword(keyword);
     // setShowList(true);
     // setShowDetail(false);
   }
-
 
   return (
     <div>

@@ -1,26 +1,38 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { User } from '../tsTypes'
 
-function Setting({ userSetting, setUserSetting }) {
+
+type SettingProps = {
+  userSetting: User;
+  setUserSetting: React.Dispatch<React.SetStateAction<User>>;
+};
+
+function Setting({ userSetting, setUserSetting } : SettingProps) {
   const navigate = useNavigate();
-  const [editedSetting, setEditedSetting] = useState({ ...userSetting });
+  const [editedSetting, setEditedSetting] = useState <User> ({ ...userSetting });
 
-  function handleChange(e) {
+  function handleChange(e:  React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement> ) {
     setEditedSetting({
       ...editedSetting,
       [e.target.name]: e.target.value,
     });
   }
 
-
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement> ) {
     e.preventDefault();
+    const target = e.target as typeof e.target & {
+      dailyLimit: { value: number };
+      sleepTreshold: { value: number };
+      sleepTime: { value: string };
+    };
     const updatedSetting = {
       ...editedSetting,
-      dailyLimit: e.target.dailyLimit.value,
-      sleepTreshold: e.target.sleepTreshold.value,
-      sleepTime: e.target.sleepTime.value,
+      dailyLimit: target.dailyLimit.value,
+      sleepTreshold: target.sleepTreshold.value,
+      sleepTime: target.sleepTime.value,
     };
+
     setEditedSetting(updatedSetting);
     localStorage.setItem("userSetting", JSON.stringify(updatedSetting));
     handleEdit();
@@ -60,7 +72,7 @@ function Setting({ userSetting, setUserSetting }) {
             name="dailyLimit"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 "
             defaultValue={userSetting.dailyLimit}
-            value={editedSetting.dailyLimit}
+            //value={editedSetting.dailyLimit}
             onChange={handleChange}
             required
           />
@@ -84,7 +96,7 @@ function Setting({ userSetting, setUserSetting }) {
             name="sleepTreshold"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 "
             defaultValue={userSetting.sleepTreshold}
-            value={editedSetting.sleepTreshold}
+            //value={editedSetting.sleepTreshold}
             onChange={handleChange}
             required
           />
@@ -94,7 +106,8 @@ function Setting({ userSetting, setUserSetting }) {
             <br />
             ➕ If you sleep well even if you drink coffee late at night, raise
             this number.
-            <br />➖ If drinking a little coffee interfere with your sleep,
+            <br />
+            ➖ If drinking a little coffee interfere with your sleep,
             lower this number.
           </p>
         </div>
@@ -111,7 +124,7 @@ function Setting({ userSetting, setUserSetting }) {
             name="sleepTime"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             defaultValue={userSetting.sleepTime}
-            value={editedSetting.sleepTime}
+            //value={editedSetting.sleepTime}
             onChange={handleChange}
             required
           >

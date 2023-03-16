@@ -1,18 +1,24 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { postLog } from '../ApiService';
+import { Food,Logs } from '../tsTypes'
 
+export type DataDetailProps = {
+  selectedItem :Food;
+  setItemAdded: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-function DataDetail({ selectedItem }) {
+function DataDetail({ selectedItem, setItemAdded }: DataDetailProps ) {
   const navigate = useNavigate();
-  const [newLog, setNewLog] = useState({ ...selectedItem });
+  const [newLog, setNewLog] = useState <Food>({ ...selectedItem });
   const caffeineRatio = selectedItem.caffeine / selectedItem.baseAmount;
-  function handleChange(e) {
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.name === "baseAmount") {
-      const caffeineValue = Math.round(caffeineRatio * e.target.value);
+      const caffeineValue = Math.round(caffeineRatio * Number(e.target.value));
       setNewLog({
         ...newLog,
-        baseAmount: e.target.value,
+        baseAmount: Number(e.target.value),
         caffeine: caffeineValue
       });
     } else {
@@ -23,21 +29,24 @@ function DataDetail({ selectedItem }) {
     }
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const updatedLog = {
       ...newLog,
+      //@ts-ignore
       name: e.target.name.value,
-      baseAmount: e.target.baseAmount.value,
-      caffeine: e.target.caffeine.value,
-      timestamp: e.target.timestamp.value,
+      baseAmount: Number(e.currentTarget.baseAmount.value),
+      caffeine:Number( e.currentTarget.caffeine.value),
+      timestamp: e.currentTarget.timestamp.value,
     };
     setNewLog(updatedLog);
+      //@ts-ignore
     handlePost(updatedLog);
   }
 
-function handlePost(updatedLog) {
+function handlePost(updatedLog:Logs) {
     postLog(updatedLog);
+    setItemAdded(true);
     navigate("/log");
   }
 
@@ -45,7 +54,7 @@ function handlePost(updatedLog) {
   if (selectedItem._id) {
     return (
       <form className="flex flex-col items-center" onSubmit={handleSubmit}>
-        <img src={selectedItem.imageUrl} className="w-24 m-4"></img>
+        <img alt="selected_item" src={selectedItem.imageUrl} className="w-24 m-4"></img>
 
         <div className="flex">
           <label
@@ -60,7 +69,7 @@ function handlePost(updatedLog) {
             name="name"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             defaultValue={selectedItem.name}
-            value={newLog.name}
+           // value={newLog.name}
             onChange={handleChange}
             required
           />
@@ -79,7 +88,7 @@ function handlePost(updatedLog) {
             name="baseAmount"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             defaultValue={selectedItem.baseAmount}
-            value={newLog.baseAmount}
+          // value={newLog.baseAmount}
             onChange={handleChange}
             required
           />
@@ -99,7 +108,7 @@ function handlePost(updatedLog) {
             name="caffeine"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             defaultValue={selectedItem.caffeine}
-            value={newLog.caffeine}
+           // value={newLog.caffeine}
             required
           />{" "}
           mg
@@ -116,7 +125,7 @@ function handlePost(updatedLog) {
             id="timestamp"
             name="timestamp"
             defaultValue={new Date().toISOString().slice(0, 16)}
-            value={newLog.timestamp}
+            //value={newLog.timestamp}
             onChange={handleChange}
             required
           />
@@ -130,6 +139,9 @@ function handlePost(updatedLog) {
       </form>
     );
   }
+  return (
+    <div>No Item selected.</div>
+  )
 }
 
 export default DataDetail;

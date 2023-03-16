@@ -1,12 +1,20 @@
+import React from 'react';
+import { Food } from '../tsTypes';
 
-function SearchResult({ searchResult, setSelectedItem }) {
+type SearchResultProps = {
+   searchResult: Food[] ,
+   setSelectedItem: React.Dispatch<React.SetStateAction<any>>,
+}
 
-  const handleClick = (result) => {
-    setSelectedItem(result);
+function SearchResult({ searchResult, setSelectedItem }:SearchResultProps) {
+
+  const handleClick = (result: Food) => {
+    console.log('result of search:', result);
+      setSelectedItem(result);
   };
 
     return (
-      <div>
+      <div >
           <ul className="results mx-10">
           {searchResult.map((result) => {
               return (
@@ -21,7 +29,9 @@ function SearchResult({ searchResult, setSelectedItem }) {
             })}
           </ul>
       </div>
-    );
+
+
+          );
   }
 
 

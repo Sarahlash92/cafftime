@@ -1,6 +1,8 @@
-const logs = require('../models/logs');
+import logs from '../models/logs';
+import { Context } from 'koa';
+import koaBody from 'koa-bodyparser';
 
-exports.getLogs = async ctx => {
+exports.getLogs = async  (ctx : Context ) : Promise <void>=> {
   try {
     ctx.status = 200;
     ctx.body = await logs.find();
@@ -10,7 +12,7 @@ exports.getLogs = async ctx => {
   }
 }
 
-exports.getLog = async (ctx) => {
+exports.getLog = async  (ctx : Context ) : Promise <void>=> {
   try {
     const { id } = ctx.params
     ctx.status = 200;
@@ -21,7 +23,7 @@ exports.getLog = async (ctx) => {
   }
 };
 
-exports.postLog = async ctx => {
+exports.postLog = async   (ctx : Context ) : Promise <void>=> {
   try {
     ctx.status = 201;
     ctx.body = await logs.create(ctx.request.body);
@@ -31,7 +33,7 @@ exports.postLog = async ctx => {
   }
 }
 
-exports.deleteLog = async (ctx) => {
+exports.deleteLog = async   (ctx : Context ) : Promise <void>=> {
   try {
     const { id } = ctx.params;
     ctx.status = 200;
@@ -43,10 +45,11 @@ exports.deleteLog = async (ctx) => {
 };
 
 
-exports.editLog = async (ctx) => {
+exports.editLog = async (ctx : Context ) : Promise <void> => {
   try {
     const { id } = ctx.params;
     ctx.status = 200;
+    //@ts-ignore
     ctx.body = await logs.findByIdAndUpdate(id, ctx.request.body);
   } catch (e) {
     ctx.status = 500;

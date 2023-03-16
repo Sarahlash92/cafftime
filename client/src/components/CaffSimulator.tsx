@@ -1,6 +1,14 @@
-function CaffSimulator({remaining, remainingatBedtime}) {
-  let bgColor, textColor;
-  let bgColorBedtime, textColorBedtime;
+import React from 'react';
+
+type CaffSimulatorProps = {
+  remaining: number;
+  remainingatBedtime: number;
+  className? : string;
+}
+
+function CaffSimulator({remaining, remainingatBedtime}: CaffSimulatorProps) {
+  let bgColor: string , textColor: string;
+  let bgColorBedtime: string , textColorBedtime: string ;
 
   if (remaining >= 200) {
     bgColor = "bg-red-500";

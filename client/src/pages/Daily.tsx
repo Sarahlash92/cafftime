@@ -1,9 +1,19 @@
+import React from 'react';
 import CaffSimulator from '../components/CaffSimulator';
 import LineGraph from '../components/LineGraph';
 import PieChart from '../components/PieChart';
+import {User, Logs} from '../tsTypes';
 
+type DailyProps = {
+  todaySum: number;
+  remaining: number;
+  remainingByTime: number[];
+  remainingatBedtime: number;
+  userSetting: User;
+  Logs: Logs[];
+}
 
-function Daily({ todaySum, remaining, remainingByTime, remainingatBedtime, userSetting }) {
+const Daily: React.FC<DailyProps> = ({ todaySum, remaining, remainingByTime, remainingatBedtime, userSetting }) =>  {
   return (
     <div className="rounded-t-2xl h-[calc(80vh-64px)] overflow-scroll bg-white">
       <h1 className="text-2xl font-bold mt-8"> TODAY </h1>

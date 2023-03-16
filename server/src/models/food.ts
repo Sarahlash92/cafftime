@@ -1,4 +1,4 @@
-const mongoose = require("../models/index");
+import mongoose from "../models/index";
 const Schema = mongoose.Schema;
 
 const FoodSchema = new Schema({

@@ -1,29 +1,36 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { getLog, deleteLog, editLog } from "../ApiService"
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Logs } from '../tsTypes'
 
-function EditData() {
+
+function EditData({ itemDeleted }: {itemDeleted:  React.Dispatch<React.SetStateAction<boolean>>}) {
   const navigate = useNavigate();
-  const { id } = useParams();
-  const [selectedLog, setSelectedLog] = useState({});
-  const [editedLog, setEditedLog] = useState({ ...selectedLog })
+  const { id } = useParams() as any;
+  // const { id } = useParams<{id: string}>();
+  const [selectedLog, setSelectedLog] = useState<any>({});
+  const [editedLog, setEditedLog] = useState<Logs>({ ...selectedLog })
   const caffeineRatio = selectedLog.caffeine / selectedLog.baseAmount;
 
   useEffect(() => {
-    getLog(id).then((res) => setSelectedLog(res))
+    getLog(id)
+    .then((res) => setSelectedLog(res))
+    .catch((error)=>console.log(error)
+    )
   }, [])
 
   function handleDelete() {
     deleteLog(id);
+    itemDeleted(true);
     navigate("/log");
   }
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.name === "baseAmount") {
-      const caffeineValue = Math.round(caffeineRatio * e.target.value);
+      const caffeineValue = Math.round(caffeineRatio * parseInt(e.target.value, 10));
       setEditedLog({
         ...editedLog,
-        baseAmount: e.target.value,
+        baseAmount: parseInt(e.target.value, 10),
         caffeine: caffeineValue,
       });
     } else {
@@ -34,20 +41,20 @@ function EditData() {
     }
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const updatedLog = {
       ...editedLog,
-      name: e.target.name.value,
-      baseAmount: e.target.baseAmount.value,
-      caffeine: e.target.caffeine.value,
-      timestamp: e.target.timestamp.value,
+      name: e.currentTarget.fullName.value,
+      baseAmount: e.currentTarget.baseAmount.value,
+      caffeine: e.currentTarget.caffeine.value,
+      timestamp: e.currentTarget.timestamp.value,
     };
     setEditedLog(updatedLog);
     handleEdit(updatedLog);
   }
 
-  function handleEdit(updatedLog) {
+  function handleEdit(updatedLog: Logs) {
     editLog(id, updatedLog)
     navigate("/log");
   }
@@ -74,10 +81,10 @@ function EditData() {
           <input
             type="text"
             id="name"
-            name="name"
+            name="fullName"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             defaultValue={selectedLog.name}
-            value={editedLog.name}
+            //value={editedLog.name}
             onChange={handleChange}
             required
           />
@@ -96,7 +103,7 @@ function EditData() {
             name="baseAmount"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             defaultValue={selectedLog.baseAmount}
-            value={editedLog.baseAmount}
+            //value={editedLog.baseAmount}
             onChange={handleChange}
             required
           />
@@ -116,7 +123,7 @@ function EditData() {
             name="caffeine"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             defaultValue={selectedLog.caffeine}
-            value={editedLog.caffeine}
+           // value={editedLog.caffeine}
             required
           />{" "}
           mg
@@ -133,7 +140,7 @@ function EditData() {
             id="timestamp"
             name="timestamp"
             defaultValue={formattedTimestamp}
-            value={editedLog.timestamp}
+            //value={editedLog.timestamp}
             onChange={handleChange}
             required
           />

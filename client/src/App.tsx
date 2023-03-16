@@ -1,7 +1,7 @@
 import './App.css';
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Routes, Link, useLocation } from "react-router-dom";
-import { getLogs } from "../src/ApiService"
+import { getLogs } from "../src/ApiService";
 import { getDatabase } from '../src/ApiService';
 import { DateTime } from "luxon";
 import Log from './pages/Log';
@@ -10,81 +10,80 @@ import AddData from './pages/AddData';
 import EditData from './pages/EditData';
 import Setting from "./pages/Setting";
 import { calculateRemaining, setGraphTime, setGraphTimeforTomorrow } from './Utilities';
-
-function App() {
+import { Logs, Food, User } from './tsTypes';
+function App ()  {
   const location = useLocation();
-  const [logs, setLogs] = useState([]);
-  const [flattenedLogs, setFlattenedLogs] = useState([]);
-  const [todaySum, setTodaySum] = useState(0);
-  const [foodDb, setFoodDb] = useState([]);
-  const [remaining, setRemaining] = useState(calculateRemaining(logs));
-  const [remainingByTime, setRemainingByTime] = useState([]);
-  const [remainingatBedtime, setRemainingatBedTime] = useState(0);
-  const [userSetting, setUserSetting] = useState({
+  const [logs, setLogs] = useState <any[]> ([]);
+  // const [flattenedLogs, setFlattenedLogs] = useState<any[]>([]);
+  const [todaySum, setTodaySum] = useState <number> (0);
+  const [foodDb, setFoodDb] = useState<Food[]>([]);
+  const [remaining, setRemaining] = useState <number>(calculateRemaining(logs));
+  const [itemAdded, setItemAdded] = useState(false);
+  const [remainingByTime, setRemainingByTime] = useState<number[]>([]);
+  const [remainingatBedtime, setRemainingatBedTime] = useState<number>(0);
+  const [userSetting, setUserSetting] = useState<User>({
     dailyLimit: 400,
     sleepTreshold: 50,
-    sleepTime: "10PM"
+    sleepTime: "10PM",
   });
-
   /* set time for line graph*/
-  const times = [];
+  const times : number[] = [];
   for (let i = 6; i <= 24; i++) {
     times.push(setGraphTime(i));
   }
-
-   for (let i = 1; i <= 4; i++) {
-     times.push(setGraphTimeforTomorrow(i));
-   }
-
-
+  for (let i = 1; i <= 4; i++) {
+    times.push(setGraphTimeforTomorrow(i));
+  }
   /* Get food DB */
   useEffect(() => {
-    getDatabase().then((res) => {
-      setFoodDb(res);
-    });
+    getDatabase()
+      .then((res) => {
+        setFoodDb(res);
+      })
+      .catch((err) => {
+        console.log("Error fetching food database: ", err);
+      });
   }, []);
-
+  // groupeLogsByDate
+  function groupLogsByDate(logs: Logs[]): { [key: string]: Logs[] } {
+    return logs.reduce((acc: { [key: string]: Logs[] }, log: Logs) => {
+      const date = new Date(log.timestamp).toDateString();
+      if (acc[date]) {
+        acc[date].push(log);
+      } else {
+        acc[date] = [log];
+      }
+      return acc;
+    }, {});
+  }
   /* Get user logs grouped by date*/
   useEffect(() => {
-    getLogs().then((res) => {
-      const groupedLogs = res.reduce((acc, log) => {
-        const date = new Date(log.timestamp).toDateString();
-        if (acc[date]) {
-          acc[date].push(log);
-        } else {
-          acc[date] = [log];
-        }
-        return acc;
-      }, {});
-
-      const groupedLogsArray = Object.entries(groupedLogs).map(
-        ([date, logs]) => {
-          return { date, logs };
-        }
-      );
-
-      setLogs(groupedLogsArray);
-
-      if (groupedLogsArray[0].date === new Date().toDateString()) {
-        setTodaySum(
-          groupedLogsArray[0].logs.reduce((acc, log) => {
-            acc = acc + log.caffeine;
-            return acc;
-          }, 0)
-        );
-      }
-    });
-
-    setFlattenedLogs(logs.flatMap((log) => log.logs));
-
-    function filterLogByTime(logs, time) {
+    function filterLogByTime(logs: Logs[], time: number) {
       const filteredLogByTime = logs.filter(
         (log) => Date.parse(log.timestamp) < time
       );
-
       return filteredLogByTime;
     }
-
+    getLogs()
+      .then((res) => {
+        const groupedLogs = groupLogsByDate(res);
+        const groupedLogsArray = Object.entries(groupedLogs).map(
+          ([date, logs]) => {
+            return { date, logs };
+          }
+        );
+        setLogs(groupedLogsArray);
+        if (groupedLogsArray[0]?.date === new Date().toDateString()) {
+          setTodaySum(
+            groupedLogsArray[0].logs.reduce((acc, log) => {
+              acc = acc + log.caffeine;
+              return acc;
+            }, 0)
+          );
+        }
+      })
+      .catch(err => console.log(err));
+       const flattenedLogs = logs.flatMap((log) => log.logs);
     /* convert bedtime string(from userSetting) to real time format*/
     const now = DateTime.local();
     const tomorrow = DateTime.local().plus({ days: 1 });
@@ -103,15 +102,11 @@ function App() {
         day: tomorrow.day
       });
     }
-
     /* Calculate remaining caffeine in body using helper function*/
     setRemaining(calculateRemaining(flattenedLogs));
     setRemainingByTime(times.map(time => calculateRemaining(filterLogByTime(flattenedLogs, time), time)));
     setRemainingatBedTime(calculateRemaining(flattenedLogs, sleepTime));
-  }, [logs]);
-
-
-
+  }, [itemAdded]);
   /* if we're in add page or edit page, don't show '+' button */
   if (
     location.pathname === "/add" ||
@@ -126,6 +121,7 @@ function App() {
             path="/"
             element={
               <Daily
+                Logs={logs}
                 todaySum={todaySum}
                 remaining={remaining}
                 remainingByTime={remainingByTime}
@@ -134,8 +130,8 @@ function App() {
               />
             }
           />
-          <Route path="/add" element={<AddData foodDb={foodDb} />} />
-          <Route path="/log/edit/:id" element={<EditData />} />
+          <Route path="/add" element={<AddData setItemAdded={setItemAdded} foodDb={foodDb} />} />
+          <Route path="/log/edit/:id" element={<EditData itemDeleted={setItemAdded}/>} />
           <Route
             path="/setting"
             element={
@@ -149,7 +145,6 @@ function App() {
       </div>
     );
   }
-
   return (
     <div className="App relative">
       <Routes>
@@ -159,7 +154,7 @@ function App() {
           element={
             <Daily
               todaySum={todaySum}
-              logs={logs}
+              Logs={logs}
               remaining={remaining}
               remainingByTime={remainingByTime}
               remainingatBedtime={remainingatBedtime}
@@ -167,8 +162,8 @@ function App() {
             />
           }
         />
-        <Route path="/add" element={<AddData />} />
-        <Route path="/log/edit/:id" element={<EditData />} />
+        <Route path="/add" element={<AddData setItemAdded={setItemAdded} foodDb={foodDb} />} />
+        <Route path="/log/edit/:id" element={<EditData itemDeleted={setItemAdded}/>} />
         <Route
           path="/setting"
           element={
@@ -187,5 +182,4 @@ function App() {
     </div>
   );
 }
-
 export default App;

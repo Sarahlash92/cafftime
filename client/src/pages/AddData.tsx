@@ -3,15 +3,23 @@ import { useState } from "react";
 import Search from '../components/Search';
 import SearchResult from '../components/SearchResult';
 import DataDetail from '../components/DataDetail';
+import { Food } from '../tsTypes';
 
-function AddData({ foodDb }) {
-  const [selectedItem, setSelectedItem] = useState({});
-  const [searchResult, setSearchResult] = useState([]);
+type AddDataProps = {
+foodDb: Food[]
+setItemAdded :  React.Dispatch<React.SetStateAction<boolean>>
+}
 
-  const handleSelectedItemChange = (item) => {
+function AddData({ foodDb, setItemAdded } : AddDataProps) {
+  const [selectedItem, setSelectedItem] = useState<any>({
+
+  });
+
+  const [searchResult, setSearchResult] = useState<Food[]>([]);
+
+  const handleSelectedItemChange = (item: Food) => {
     setSelectedItem(item);
   };
-
 
   return (
     <div className="rounded-t-2xl h-[calc(80vh-64px)] overflow-scroll bg-white relative">
@@ -32,7 +40,7 @@ function AddData({ foodDb }) {
 
         />
       }
-      <DataDetail
+      <DataDetail setItemAdded={setItemAdded}
         selectedItem={selectedItem}
       />
     </div>

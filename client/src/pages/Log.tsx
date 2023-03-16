@@ -1,18 +1,19 @@
 import { Link } from "react-router-dom";
+import { Logs } from '../tsTypes';
 
-
-function Log({ logs }) {
+function Log({ logs }: {logs: Logs[]}) {
   return (
     <div className="rounded-t-2xl h-[calc(80vh-64px)] overflow-scroll bg-white">
       <div className="relative px-4">
-        {logs.map((log) => {
+        {logs.map((log :Logs) => {
+
           return (
-            <div className="border-b-2 py-4" key={log.date}>
-              <p className="text-2xl font-bold text-left">{log.date}</p>
+            <div className="border-b-2 py-4" key ={log.date.toString()}>
+              <p className="text-2xl font-bold text-left">{log.date.toString()}</p>
               <p className="text-2xl font-bold text-left">
                 Total Caffeine{" "}
                 <span className="text-2xl font-bold text-red-500">
-                  {log.logs.reduce((acc, log) => {
+                  {log.logs?.reduce((acc: number, log: Logs) => {
                     acc = acc + log.caffeine;
                     return acc;
                   }, 0)}
@@ -20,7 +21,7 @@ function Log({ logs }) {
                   mg{" "}
                 </span>
               </p>
-              {log.logs.map((item) => {
+              {log.logs?.map((item:Logs) => {
                 const detailUrl = `/log/edit/${item._id}`;
                 return (
                   <Link
