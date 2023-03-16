@@ -17,10 +17,18 @@ describe('Tests', () => {
   app.use(bodyParser())
     .use(router.routes());
   const request = superTest(app);
+
+  beforeAll(async () => {
+    await mongoose.connect(`${db_url}${dbName}`);
 });
 
-beforeAll(async () => {
-  await mongoose.connect(`${db_url}${dbName}`);
+  it('GET /db', async () => {
+    const res = await request.get('/db');
+    expect(res.status).toEqual(200);
+    expect(Array.isArray(res.body)).toBe(true);
+  });
+
+
 });
 
 // afterEach(async () => {
@@ -36,9 +44,4 @@ it('should test something',  ()=>{
     expect( 1 ).toBe( 1 );
   });
 
-test('GET /db', async () => {
 
-  const res = await request.get('/db');
-  expect(res.status).toEqual(200);
-  expect(Array.isArray(res.body)).toBe(true);
-});
