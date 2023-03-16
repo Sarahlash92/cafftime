@@ -1,8 +1,11 @@
+// @ts-nocheck
+
+
 require('dotenv').config();
 const dbName = process.env.DB_TEST;
 const db_url = process.env.DB_URL;
 const Koa = require('koa');
-import router from('./../router.ts');
+import router from '../router';
 const bodyParser = require('koa-bodyparser');
 const superTest = require('supertest');
 const Food = require('./../models/food');
@@ -33,8 +36,8 @@ it('should test something',  ()=>{
     expect( 1 ).toBe( 1 );
   });
 
-
 test('GET /db', async () => {
+
   const res = await request.get('/db');
   expect(res.status).toEqual(200);
   expect(Array.isArray(res.body)).toBe(true);
